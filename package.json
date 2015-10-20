@@ -1,8 +1,8 @@
 {
-  "name": "tutor-js-shared",
+  "name": "openstax-react-components",
   "version": "0.0.0",
-  "description": "Bare Repo for OpenStax Tutor",
-  "main": "dist/tutor-js-shared.min.js",
+  "description": "OpenStax shared React components",
+  "main": "components-only.min.js",
   "scripts": {
     "test": "gulp test && gulp prod",
     "coverage": "gulp coverage",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/openstax/tutor-js-bare.git"
+    "url": "https://github.com/openstax/react-components.git"
   },
   "author": "Philip Schatz <http://philschatz.com>",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/openstax/tutor-js-bare/issues"
+    "url": "https://github.com/openstax/react-components/issues"
   },
-  "homepage": "https://github.com/openstax/tutor-js-bare",
+  "homepage": "https://github.com/openstax/react-components",
   "dependencies": {
     "bootstrap": "~3.3.2",
     "camelcase": "^1.0.2",
@@ -70,6 +70,7 @@
     "karma-webpack": "^1.7.0",
     "less": "^2.5.1",
     "less-loader": "^2.2.0",
+    "lodash": "^3.10.1",
     "mocha": "~2.2.1",
     "parent-require": "^1.0.0",
     "phantomjs": "^1.9.18",
