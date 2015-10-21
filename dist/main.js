@@ -54,11 +54,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, CardBody, ChapterSectionMixin, Exercise, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
 
 	Exercise = __webpack_require__(1);
 
 	FreeResponse = __webpack_require__(15);
+
+	ExerciseGroup = __webpack_require__(7);
 
 	PinnedHeaderFooterCard = __webpack_require__(19);
 

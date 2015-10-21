@@ -21249,11 +21249,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, CardBody, ChapterSectionMixin, Exercise, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
 
 	Exercise = __webpack_require__(154);
 
 	FreeResponse = __webpack_require__(233);
+
+	ExerciseGroup = __webpack_require__(158);
 
 	PinnedHeaderFooterCard = __webpack_require__(237);
 
