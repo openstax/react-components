@@ -17,6 +17,7 @@ ResizeListenerMixin = require './src/components/resize-listener-mixin'
 
 module.exports = {
   Exercise,
+  ExerciseGroup,
   FreeResponse,
 
   PinnedHeaderFooterCard,

@@ -21277,6 +21277,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = {
 	  Exercise: Exercise,
+	  ExerciseGroup: ExerciseGroup,
 	  FreeResponse: FreeResponse,
 	  PinnedHeaderFooterCard: PinnedHeaderFooterCard,
 	  PinnedHeader: PinnedHeader,
