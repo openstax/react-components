@@ -23079,7 +23079,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var CONTINUE_CHECKS, CONTROLS, CardBody, ExContinueButton, ExFreeResponse, ExMultipleChoice, ExReview, ExReviewControls, ExerciseDefaultFooter, ExerciseGroup, ExerciseStepCard, ON_CHANGE, PANELS, React, _, classnames, propTypes, props, ref, ref1;
 
-	React = __webpack_require__(171);
+	React = __webpack_require__(2);
 
 	_ = __webpack_require__(1);
 

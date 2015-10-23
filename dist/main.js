@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("react"), require("underscore"), require("react-bootstrap"), require("react-scroll-components"));
+		module.exports = factory(require("react"), require("underscore"), require("react/addons"), require("react-bootstrap"), require("react-scroll-components"));
 	else if(typeof define === 'function' && define.amd)
-		define("OpenStaxReactComponents", ["react", "underscore", "react-bootstrap", "react-scroll-components"], factory);
+		define("OpenStaxReactComponents", ["react", "underscore", "react/addons", "react-bootstrap", "react-scroll-components"], factory);
 	else if(typeof exports === 'object')
-		exports["OpenStaxReactComponents"] = factory(require("react"), require("underscore"), require("react-bootstrap"), require("react-scroll-components"));
+		exports["OpenStaxReactComponents"] = factory(require("react"), require("underscore"), require("react/addons"), require("react-bootstrap"), require("react-scroll-components"));
 	else
-		root["OpenStaxReactComponents"] = factory(root["React"], root["_"], root["ReactBootstrap"], root["ReactScrollComponents"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_20__) {
+		root["OpenStaxReactComponents"] = factory(root["React"], root["_"], root["React.addons"], root["ReactBootstrap"], root["ReactScrollComponents"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_21__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -58,27 +58,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Exercise = __webpack_require__(1);
 
-	FreeResponse = __webpack_require__(15);
+	FreeResponse = __webpack_require__(16);
 
-	ExerciseGroup = __webpack_require__(7);
+	ExerciseGroup = __webpack_require__(8);
 
-	PinnedHeaderFooterCard = __webpack_require__(19);
+	PinnedHeaderFooterCard = __webpack_require__(20);
 
-	ref = __webpack_require__(9), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
+	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
-	Question = __webpack_require__(14);
+	Question = __webpack_require__(15);
 
-	ArbitraryHtmlAndMath = __webpack_require__(12);
+	ArbitraryHtmlAndMath = __webpack_require__(13);
 
-	RefreshButton = __webpack_require__(17);
+	RefreshButton = __webpack_require__(18);
 
-	AsyncButton = __webpack_require__(16);
+	AsyncButton = __webpack_require__(17);
 
-	ChapterSectionMixin = __webpack_require__(8);
+	ChapterSectionMixin = __webpack_require__(9);
 
-	GetPositionMixin = __webpack_require__(22);
+	GetPositionMixin = __webpack_require__(23);
 
-	ResizeListenerMixin = __webpack_require__(21);
+	ResizeListenerMixin = __webpack_require__(22);
 
 	module.exports = {
 	  Exercise: Exercise,
@@ -112,7 +112,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ExerciseStepCard = __webpack_require__(5);
 
-	propTypes = __webpack_require__(18).propTypes;
+	propTypes = __webpack_require__(19).propTypes;
 
 	step = propTypes.ExerciseStepCard.step;
 
@@ -302,19 +302,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var CONTINUE_CHECKS, CONTROLS, CardBody, ExContinueButton, ExFreeResponse, ExMultipleChoice, ExReview, ExReviewControls, ExerciseDefaultFooter, ExerciseGroup, ExerciseStepCard, ON_CHANGE, PANELS, React, _, classnames, propTypes, props, ref, ref1;
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(6);
 
 	_ = __webpack_require__(3);
 
-	classnames = __webpack_require__(6);
+	classnames = __webpack_require__(7);
 
-	ExerciseGroup = __webpack_require__(7);
+	ExerciseGroup = __webpack_require__(8);
 
-	CardBody = __webpack_require__(9).CardBody;
+	CardBody = __webpack_require__(10).CardBody;
 
-	ref = __webpack_require__(10), ExContinueButton = ref.ExContinueButton, ExReviewControls = ref.ExReviewControls, ExFreeResponse = ref.ExFreeResponse, ExMultipleChoice = ref.ExMultipleChoice, ExReview = ref.ExReview;
+	ref = __webpack_require__(11), ExContinueButton = ref.ExContinueButton, ExReviewControls = ref.ExReviewControls, ExFreeResponse = ref.ExFreeResponse, ExMultipleChoice = ref.ExMultipleChoice, ExReview = ref.ExReview;
 
-	ref1 = __webpack_require__(18), propTypes = ref1.propTypes, props = ref1.props;
+	ref1 = __webpack_require__(19), propTypes = ref1.propTypes, props = ref1.props;
 
 	PANELS = {
 	  'free-response': ExFreeResponse,
@@ -447,6 +447,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -500,7 +506,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ChapterSectionMixin, DEFAULT_GROUP, ExerciseGroup, RULES, React, _, camelCase;
@@ -511,7 +517,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	camelCase = __webpack_require__(4);
 
-	ChapterSectionMixin = __webpack_require__(8);
+	ChapterSectionMixin = __webpack_require__(9);
 
 	DEFAULT_GROUP = {
 	  show: false
@@ -585,7 +591,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _;
@@ -623,7 +629,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var CardBody, PinnableFooter, PinnedHeader, React;
@@ -712,30 +718,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ArbitraryHtmlAndMath, AsyncButton, BS, CardBody, ExContinueButton, ExFreeResponse, ExMultipleChoice, ExReview, ExReviewControls, ExerciseGroup, FreeResponse, Question, React, _, propTypes, props, ref;
 
 	React = __webpack_require__(2);
 
-	BS = __webpack_require__(11);
+	BS = __webpack_require__(12);
 
 	_ = __webpack_require__(3);
 
-	ArbitraryHtmlAndMath = __webpack_require__(12);
+	ArbitraryHtmlAndMath = __webpack_require__(13);
 
-	Question = __webpack_require__(14);
+	Question = __webpack_require__(15);
 
-	FreeResponse = __webpack_require__(15);
+	FreeResponse = __webpack_require__(16);
 
-	AsyncButton = __webpack_require__(16);
+	AsyncButton = __webpack_require__(17);
 
-	ExerciseGroup = __webpack_require__(7);
+	ExerciseGroup = __webpack_require__(8);
 
-	CardBody = __webpack_require__(9).CardBody;
+	CardBody = __webpack_require__(10).CardBody;
 
-	ref = __webpack_require__(18), propTypes = ref.propTypes, props = ref.props;
+	ref = __webpack_require__(19), propTypes = ref.propTypes, props = ref.props;
 
 	ExContinueButton = React.createClass({
 	  displayName: 'ExContinueButton',
@@ -945,13 +951,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_11__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, _, typesetMath;
@@ -960,7 +966,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_ = __webpack_require__(3);
 
-	typesetMath = __webpack_require__(13).typesetMath;
+	typesetMath = __webpack_require__(14).typesetMath;
 
 	module.exports = React.createClass({
 	  displayName: 'ArbitraryHtmlAndMath',
@@ -1035,7 +1041,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var COMBINED_MATH_SELECTOR, MATH_DATA_SELECTOR, MATH_MARKER_BLOCK, MATH_MARKER_INLINE, MATH_ML_SELECTOR, _, cleanMathArtifacts, startMathJax, typesetDocument, typesetMath;
@@ -1143,7 +1149,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Answer, ArbitraryHtml, React, _, idCounter,
@@ -1153,7 +1159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_ = __webpack_require__(3);
 
-	ArbitraryHtml = __webpack_require__(12);
+	ArbitraryHtml = __webpack_require__(13);
 
 	idCounter = 0;
 
@@ -1330,7 +1336,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FreeResponse, React;
@@ -1370,18 +1376,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var BS, React, RefreshButton, _;
 
 	React = __webpack_require__(2);
 
-	BS = __webpack_require__(11);
+	BS = __webpack_require__(12);
 
 	_ = __webpack_require__(3);
 
-	RefreshButton = __webpack_require__(17);
+	RefreshButton = __webpack_require__(18);
 
 	module.exports = React.createClass({
 	  displayName: 'AsyncButton',
@@ -1468,7 +1474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React;
@@ -1503,7 +1509,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var CONTINUE_PROP_TYPES, CONTROL_PROPS, EXERCISE_STEP_CARD_PROP_TYPES, FOOTER_PROPS, FREE_RESPONSE_PROP_TYPES, MULTIPLE_CHOICE_PROP_TYPES, NOT_PANEL_PROPS, REVIEW_CONTROL_PROP_TYPES, React, STEP_PROP_TYPES, _, extendPropTypes, propTypes, props,
@@ -1606,7 +1612,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var CardBody, GetPositionMixin, PinnableFooter, PinnedHeader, React, ResizeListenerMixin, ScrollListenerMixin, _, ref;
@@ -1615,13 +1621,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_ = __webpack_require__(3);
 
-	ScrollListenerMixin = __webpack_require__(20).ScrollListenerMixin;
+	ScrollListenerMixin = __webpack_require__(21).ScrollListenerMixin;
 
-	ResizeListenerMixin = __webpack_require__(21);
+	ResizeListenerMixin = __webpack_require__(22);
 
-	GetPositionMixin = __webpack_require__(22);
+	GetPositionMixin = __webpack_require__(23);
 
-	ref = __webpack_require__(9), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
+	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
 	module.exports = React.createClass({
 	  displayName: 'PinnedHeaderFooterCard',
@@ -1816,13 +1822,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_20__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, _;
@@ -1903,7 +1909,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = {
