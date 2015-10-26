@@ -1152,16 +1152,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Answer, ArbitraryHtml, React, _, idCounter,
+	var Answer, ArbitraryHtml, Feedback, React, _, classnames, idCounter, isAnswerChecked, isAnswerCorrect,
 	  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 	React = __webpack_require__(2);
 
 	_ = __webpack_require__(3);
 
+	classnames = __webpack_require__(7);
+
 	ArbitraryHtml = __webpack_require__(13);
 
 	idCounter = 0;
+
+	isAnswerCorrect = function(answer, correctAnswerId) {
+	  var isCorrect;
+	  isCorrect = answer.id === correctAnswerId;
+	  if (answer.correctness != null) {
+	    isCorrect = answer.correctness === '1.0';
+	  }
+	  return isCorrect;
+	};
+
+	isAnswerChecked = function(answer, chosenAnswer) {
+	  var isChecked, ref;
+	  return isChecked = (ref = answer.id, indexOf.call(chosenAnswer, ref) >= 0);
+	};
 
 	Answer = React.createClass({
 	  displayName: 'Answer',
@@ -1178,8 +1194,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    hasCorrectAnswer: React.PropTypes.bool.isRequired,
 	    onChangeAnswer: React.PropTypes.func.isRequired,
 	    disabled: React.PropTypes.bool,
-	    chosen_answer: React.PropTypes.array,
-	    correct_answer_id: React.PropTypes.string,
+	    chosenAnswer: React.PropTypes.array,
+	    correctAnswerId: React.PropTypes.string,
 	    answered_count: React.PropTypes.number
 	  },
 	  getDefaultProps: function() {
@@ -1188,24 +1204,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	  render: function() {
-	    var answer, answered_count, chosen_answer, classes, correct_answer_id, disabled, hasCorrectAnswer, isChecked, isCorrect, iter, onChangeAnswer, percent, qid, radioBox, ref, ref1, selectedCount, type;
-	    ref = this.props, answer = ref.answer, iter = ref.iter, qid = ref.qid, type = ref.type, correct_answer_id = ref.correct_answer_id, answered_count = ref.answered_count, hasCorrectAnswer = ref.hasCorrectAnswer, chosen_answer = ref.chosen_answer, onChangeAnswer = ref.onChangeAnswer, disabled = ref.disabled;
+	    var answer, answered_count, chosenAnswer, classes, correctAnswerId, disabled, hasCorrectAnswer, isChecked, isCorrect, iter, onChangeAnswer, percent, qid, radioBox, ref, selectedCount, type;
+	    ref = this.props, answer = ref.answer, iter = ref.iter, qid = ref.qid, type = ref.type, correctAnswerId = ref.correctAnswerId, answered_count = ref.answered_count, hasCorrectAnswer = ref.hasCorrectAnswer, chosenAnswer = ref.chosenAnswer, onChangeAnswer = ref.onChangeAnswer, disabled = ref.disabled;
 	    if (qid == null) {
 	      qid = "auto-" + (idCounter++);
 	    }
-	    isChecked = (ref1 = answer.id, indexOf.call(chosen_answer, ref1) >= 0);
-	    isCorrect = answer.id === correct_answer_id;
-	    if (answer.correctness != null) {
-	      isCorrect = answer.correctness === '1.0';
-	    }
-	    classes = ['answers-answer'];
-	    if (isChecked) {
-	      classes.push('answer-checked');
-	    }
-	    if (isCorrect) {
-	      classes.push('answer-correct');
-	    }
-	    classes = classes.join(' ');
+	    isChecked = isAnswerChecked(answer, chosenAnswer);
+	    isCorrect = isAnswerCorrect(answer, correctAnswerId);
+	    classes = classnames('answers-answer', {
+	      'answer-checked': isChecked,
+	      'answer-correct': isCorrect
+	    });
 	    if (!(hasCorrectAnswer || type === 'teacher-review')) {
 	      radioBox = React.createElement("input", {
 	        "type": 'radio',
@@ -1236,6 +1245,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "className": 'answer-content',
 	      "html": answer.content_html
 	    })));
+	  }
+	});
+
+	Feedback = React.createClass({
+	  displayName: 'Feedback',
+	  propTypes: {
+	    children: React.PropTypes.string.isRequired,
+	    position: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right'])
+	  },
+	  getDefaultProps: function() {
+	    return {
+	      position: 'bottom'
+	    };
+	  },
+	  render: function() {
+	    var wrapperClasses;
+	    wrapperClasses = classnames('question-feedback', 'popover', this.props.position);
+	    return React.createElement("div", {
+	      "className": wrapperClasses
+	    }, React.createElement("div", {
+	      "className": 'arrow'
+	    }), React.createElement(ArbitraryHtml, {
+	      "className": 'question-feedback-content has-html popover-content',
+	      "html": this.props.children,
+	      "block": true
+	    }));
 	  }
 	});
 
@@ -1279,25 +1314,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	    })(this);
 	  },
 	  render: function() {
-	    var answered_count, answers, choicesEnabled, classes, feedback, hasCorrectAnswer, html, qid, questionAnswerProps, ref, type;
-	    ref = this.props, type = ref.type, answered_count = ref.answered_count, choicesEnabled = ref.choicesEnabled;
+	    var answered_count, answers, checkedAnswerIndex, choicesEnabled, chosenAnswer, classes, correct_answer_id, feedback, hasCorrectAnswer, html, qid, questionAnswerProps, ref, type;
+	    ref = this.props, type = ref.type, answered_count = ref.answered_count, choicesEnabled = ref.choicesEnabled, correct_answer_id = ref.correct_answer_id;
+	    chosenAnswer = [this.props.answer_id, this.state.answer_id];
+	    checkedAnswerIndex = null;
 	    html = this.props.model.stem_html;
 	    qid = this.props.model.id || ("auto-" + (idCounter++));
-	    hasCorrectAnswer = !!this.props.correct_answer_id;
+	    hasCorrectAnswer = !!correct_answer_id;
 	    if (this.props.feedback_html) {
-	      feedback = React.createElement("div", {
-	        "className": 'question-feedback'
-	      }, React.createElement(ArbitraryHtml, {
-	        "className": 'question-feedback-content has-html',
-	        "html": this.props.feedback_html,
-	        "block": true
-	      }));
+	      feedback = React.createElement(Feedback, null, this.props.feedback_html);
 	    }
 	    questionAnswerProps = {
 	      qid: this.props.model.id,
-	      correct_answer_id: this.props.correct_answer_id,
+	      correctAnswerId: correct_answer_id,
 	      hasCorrectAnswer: hasCorrectAnswer,
-	      chosen_answer: [this.props.answer_id, this.state.answer_id],
+	      chosenAnswer: chosenAnswer,
 	      onChangeAnswer: this.onChangeAnswer,
 	      type: type,
 	      answered_count: answered_count,
@@ -1313,13 +1344,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: questionAnswerProps.qid + "-option-" + i
 	      };
 	      answerProps = _.extend({}, additionalProps, questionAnswerProps);
+	      if (isAnswerChecked(answer, chosenAnswer)) {
+	        checkedAnswerIndex = i;
+	      }
 	      return React.createElement(Answer, React.__spread({}, answerProps));
 	    }).value();
-	    classes = ['question'];
-	    if (hasCorrectAnswer) {
-	      classes.push('has-correct-answer');
+	    if ((feedback != null) && (checkedAnswerIndex != null)) {
+	      answers.splice(checkedAnswerIndex + 1, 0, feedback);
 	    }
-	    classes = classes.join(' ');
+	    classes = classnames('question', {
+	      'has-correct-answer': hasCorrectAnswer
+	    });
 	    return React.createElement("div", {
 	      "className": classes
 	    }, React.createElement(ArbitraryHtml, {
@@ -1328,7 +1363,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "html": html
 	    }), this.props.children, React.createElement("div", {
 	      "className": 'answers-table'
-	    }, answers), feedback, React.createElement("div", {
+	    }, answers), React.createElement("div", {
 	      "className": "exercise-uid"
 	    }, this.props.exercise_uid));
 	  }
@@ -1364,9 +1399,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      freeResponseProps['data-student-names'] = student_names.join(', ');
 	    }
 	    if ((free_response != null) && free_response.length) {
-	      FreeResponse = React.createElement("div", React.__spread({}, freeResponseProps), React.createElement("div", {
-	        "className": 'free-response-content'
-	      }, free_response));
+	      FreeResponse = React.createElement("div", React.__spread({}, freeResponseProps), free_response);
 	    }
 	    return FreeResponse;
 	  }
