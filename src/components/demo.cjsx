@@ -67,10 +67,10 @@ ExerciseDemo = React.createClass
 BreadcrumbDemo = React.createClass
   displayName: 'BreadcrumbDemo'
   getInitialState: ->
-    currentSteps: 0
+    currentStep: 0
 
   goToStep: (stepIndex) ->
-    console.info('goToStep')
+    console.info("goToStep #{stepIndex}")
     @setState(currentStep: stepIndex)
 
   render: ->
