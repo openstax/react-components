@@ -22836,7 +22836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
 
 	Exercise = __webpack_require__(170);
 
@@ -22844,7 +22844,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ExerciseGroup = __webpack_require__(175);
 
-	PinnedHeaderFooterCard = __webpack_require__(254);
+	Breadcrumb = __webpack_require__(254);
+
+	PinnedHeaderFooterCard = __webpack_require__(255);
 
 	ref = __webpack_require__(177), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
@@ -22858,14 +22860,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ChapterSectionMixin = __webpack_require__(176);
 
-	GetPositionMixin = __webpack_require__(259);
+	GetPositionMixin = __webpack_require__(260);
 
-	ResizeListenerMixin = __webpack_require__(258);
+	ResizeListenerMixin = __webpack_require__(259);
 
 	module.exports = {
 	  Exercise: Exercise,
 	  ExerciseGroup: ExerciseGroup,
 	  FreeResponse: FreeResponse,
+	  Breadcrumb: Breadcrumb,
 	  PinnedHeaderFooterCard: PinnedHeaderFooterCard,
 	  PinnedHeader: PinnedHeader,
 	  CardBody: CardBody,
@@ -23204,7 +23207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    footerProps = _.pick(this.props, props.StepFooter);
 	    footerProps.controlButtons = controlButtons || React.createElement(ControlButtons, React.__spread({}, controlProps));
 	    footer = React.addons.cloneWithProps(footer, footerProps);
-	    cardClasses = classnames('task-step', className);
+	    cardClasses = classnames('task-step', 'exercise-card', className);
 	    return React.createElement(CardBody, {
 	      "className": cardClasses,
 	      "footer": footer,
@@ -31714,17 +31717,135 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Breadcrumb, React, _, classnames;
+
+	React = __webpack_require__(171);
+
+	_ = __webpack_require__(1);
+
+	classnames = __webpack_require__(174);
+
+	Breadcrumb = React.createClass({
+	  displayName: 'Breadcrumb',
+	  propTypes: {
+	    crumb: React.PropTypes.object.isRequired,
+	    goToStep: React.PropTypes.func.isRequired,
+	    step: React.PropTypes.object.isRequired,
+	    canReview: React.PropTypes.boolean,
+	    currentStep: React.PropTypes.number,
+	    onMouseEnter: React.PropTypes.func,
+	    onMouseLeave: React.PropTypes.func
+	  },
+	  getDefaultProps: function() {
+	    return {
+	      canReview: true,
+	      step: {}
+	    };
+	  },
+	  getInitialState: function() {
+	    return this.getState(this.props);
+	  },
+	  componentWillReceiveProps: function(nextProps) {
+	    var nextState;
+	    nextState = this.getState(nextProps);
+	    return this.setState(nextState);
+	  },
+	  getState: function(arg) {
+	    var canReview, crumb, crumbType, currentStep, isCompleted, isCorrect, isCurrent, isEnd, isIncorrect, step;
+	    crumb = arg.crumb, currentStep = arg.currentStep, step = arg.step, canReview = arg.canReview;
+	    isCorrect = false;
+	    isIncorrect = false;
+	    isCurrent = crumb.key === currentStep;
+	    isCompleted = step != null ? step.is_completed : void 0;
+	    isEnd = crumb.type === 'end';
+	    crumbType = isEnd ? crumb.type : step != null ? step.type : void 0;
+	    if (isCompleted) {
+	      if (canReview && (step.correct_answer_id != null)) {
+	        if (step.is_correct) {
+	          isCorrect = true;
+	        } else if (step.answer_id) {
+	          isIncorrect = true;
+	        }
+	      }
+	    }
+	    return {
+	      isCorrect: isCorrect,
+	      isIncorrect: isIncorrect,
+	      isCurrent: isCurrent,
+	      isCompleted: isCompleted,
+	      isEnd: isEnd,
+	      crumbType: crumbType
+	    };
+	  },
+	  render: function() {
+	    var className, classes, crumb, crumbClasses, crumbType, goToStep, iconClasses, isCompleted, isCorrect, isCurrent, isEnd, isIncorrect, propsToPassOn, ref, ref1, status, step, title;
+	    ref = this.props, step = ref.step, crumb = ref.crumb, goToStep = ref.goToStep, className = ref.className;
+	    ref1 = this.state, isCorrect = ref1.isCorrect, isIncorrect = ref1.isIncorrect, isCurrent = ref1.isCurrent, isCompleted = ref1.isCompleted, isEnd = ref1.isEnd, crumbType = ref1.crumbType;
+	    propsToPassOn = _.pick(this.props, 'onMouseEnter', 'onMouseLeave', 'style');
+	    if (isCurrent) {
+	      title = "Current Step (" + crumbType + ")";
+	    }
+	    if (isCompleted) {
+	      if (title == null) {
+	        title = "Step Completed (" + crumbType + "). Click to review";
+	      }
+	    }
+	    if (isCorrect) {
+	      status = React.createElement("i", {
+	        "className": 'icon-lg icon-correct'
+	      });
+	    }
+	    if (isIncorrect) {
+	      status = React.createElement("i", {
+	        "className": 'icon-lg icon-incorrect'
+	      });
+	    }
+	    if (isEnd) {
+	      title = step.title + " Completion";
+	    }
+	    classes = classnames('task-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className, {
+	      current: isCurrent,
+	      active: isCurrent,
+	      completed: isCompleted,
+	      'status-correct': isCorrect,
+	      'status-incorrect': isIncorrect
+	    });
+	    if (crumb.data.labels != null) {
+	      crumbClasses = _.map(crumb.data.labels, function(label) {
+	        return "icon-" + label;
+	      });
+	    }
+	    iconClasses = classnames("icon-" + crumbType, crumbClasses);
+	    return React.createElement("span", React.__spread({}, propsToPassOn, {
+	      "className": classes,
+	      "title": title,
+	      "onClick": _.partial(goToStep, crumb.key),
+	      "data-chapter": crumb.sectionLabel,
+	      "key": "step-" + crumb.key
+	    }), React.createElement("i", {
+	      "className": "icon-lg " + iconClasses
+	    }), status);
+	  }
+	});
+
+	module.exports = Breadcrumb;
+
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var CardBody, GetPositionMixin, PinnableFooter, PinnedHeader, React, ResizeListenerMixin, ScrollListenerMixin, _, ref;
 
 	React = __webpack_require__(171);
 
 	_ = __webpack_require__(1);
 
-	ScrollListenerMixin = __webpack_require__(255).ScrollListenerMixin;
+	ScrollListenerMixin = __webpack_require__(256).ScrollListenerMixin;
 
-	ResizeListenerMixin = __webpack_require__(258);
+	ResizeListenerMixin = __webpack_require__(259);
 
-	GetPositionMixin = __webpack_require__(259);
+	GetPositionMixin = __webpack_require__(260);
 
 	ref = __webpack_require__(177), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
@@ -31921,11 +32042,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 255 */
+/* 256 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ScrollBlocker = __webpack_require__(256);
-	var ScrollListenerMixin = __webpack_require__(257);
+	var ScrollBlocker = __webpack_require__(257);
+	var ScrollListenerMixin = __webpack_require__(258);
 
 	module.exports = {
 	  ScrollBlocker: ScrollBlocker,
@@ -31933,7 +32054,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 256 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/** @jsx React.DOM */
@@ -31972,7 +32093,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = ScrollBlocker;
 
 /***/ },
-/* 257 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32040,7 +32161,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 258 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, _;
@@ -32121,7 +32242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 259 */
+/* 260 */
 /***/ function(module, exports) {
 
 	module.exports = {

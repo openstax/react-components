@@ -7,7 +7,7 @@
 		exports["OpenStaxReactComponents"] = factory(require("react"), require("underscore"), require("react/addons"), require("react-bootstrap"), require("react-scroll-components"));
 	else
 		root["OpenStaxReactComponents"] = factory(root["React"], root["_"], root["React.addons"], root["ReactBootstrap"], root["ReactScrollComponents"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_21__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_22__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
 
 	Exercise = __webpack_require__(1);
 
@@ -62,7 +62,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ExerciseGroup = __webpack_require__(8);
 
-	PinnedHeaderFooterCard = __webpack_require__(20);
+	Breadcrumb = __webpack_require__(20);
+
+	PinnedHeaderFooterCard = __webpack_require__(21);
 
 	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
@@ -76,14 +78,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ChapterSectionMixin = __webpack_require__(9);
 
-	GetPositionMixin = __webpack_require__(23);
+	GetPositionMixin = __webpack_require__(24);
 
-	ResizeListenerMixin = __webpack_require__(22);
+	ResizeListenerMixin = __webpack_require__(23);
 
 	module.exports = {
 	  Exercise: Exercise,
 	  ExerciseGroup: ExerciseGroup,
 	  FreeResponse: FreeResponse,
+	  Breadcrumb: Breadcrumb,
 	  PinnedHeaderFooterCard: PinnedHeaderFooterCard,
 	  PinnedHeader: PinnedHeader,
 	  CardBody: CardBody,
@@ -427,7 +430,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    footerProps = _.pick(this.props, props.StepFooter);
 	    footerProps.controlButtons = controlButtons || React.createElement(ControlButtons, React.__spread({}, controlProps));
 	    footer = React.addons.cloneWithProps(footer, footerProps);
-	    cardClasses = classnames('task-step', className);
+	    cardClasses = classnames('task-step', 'exercise-card', className);
 	    return React.createElement(CardBody, {
 	      "className": cardClasses,
 	      "footer": footer,
@@ -1648,17 +1651,135 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Breadcrumb, React, _, classnames;
+
+	React = __webpack_require__(2);
+
+	_ = __webpack_require__(3);
+
+	classnames = __webpack_require__(7);
+
+	Breadcrumb = React.createClass({
+	  displayName: 'Breadcrumb',
+	  propTypes: {
+	    crumb: React.PropTypes.object.isRequired,
+	    goToStep: React.PropTypes.func.isRequired,
+	    step: React.PropTypes.object.isRequired,
+	    canReview: React.PropTypes.boolean,
+	    currentStep: React.PropTypes.number,
+	    onMouseEnter: React.PropTypes.func,
+	    onMouseLeave: React.PropTypes.func
+	  },
+	  getDefaultProps: function() {
+	    return {
+	      canReview: true,
+	      step: {}
+	    };
+	  },
+	  getInitialState: function() {
+	    return this.getState(this.props);
+	  },
+	  componentWillReceiveProps: function(nextProps) {
+	    var nextState;
+	    nextState = this.getState(nextProps);
+	    return this.setState(nextState);
+	  },
+	  getState: function(arg) {
+	    var canReview, crumb, crumbType, currentStep, isCompleted, isCorrect, isCurrent, isEnd, isIncorrect, step;
+	    crumb = arg.crumb, currentStep = arg.currentStep, step = arg.step, canReview = arg.canReview;
+	    isCorrect = false;
+	    isIncorrect = false;
+	    isCurrent = crumb.key === currentStep;
+	    isCompleted = step != null ? step.is_completed : void 0;
+	    isEnd = crumb.type === 'end';
+	    crumbType = isEnd ? crumb.type : step != null ? step.type : void 0;
+	    if (isCompleted) {
+	      if (canReview && (step.correct_answer_id != null)) {
+	        if (step.is_correct) {
+	          isCorrect = true;
+	        } else if (step.answer_id) {
+	          isIncorrect = true;
+	        }
+	      }
+	    }
+	    return {
+	      isCorrect: isCorrect,
+	      isIncorrect: isIncorrect,
+	      isCurrent: isCurrent,
+	      isCompleted: isCompleted,
+	      isEnd: isEnd,
+	      crumbType: crumbType
+	    };
+	  },
+	  render: function() {
+	    var className, classes, crumb, crumbClasses, crumbType, goToStep, iconClasses, isCompleted, isCorrect, isCurrent, isEnd, isIncorrect, propsToPassOn, ref, ref1, status, step, title;
+	    ref = this.props, step = ref.step, crumb = ref.crumb, goToStep = ref.goToStep, className = ref.className;
+	    ref1 = this.state, isCorrect = ref1.isCorrect, isIncorrect = ref1.isIncorrect, isCurrent = ref1.isCurrent, isCompleted = ref1.isCompleted, isEnd = ref1.isEnd, crumbType = ref1.crumbType;
+	    propsToPassOn = _.pick(this.props, 'onMouseEnter', 'onMouseLeave', 'style');
+	    if (isCurrent) {
+	      title = "Current Step (" + crumbType + ")";
+	    }
+	    if (isCompleted) {
+	      if (title == null) {
+	        title = "Step Completed (" + crumbType + "). Click to review";
+	      }
+	    }
+	    if (isCorrect) {
+	      status = React.createElement("i", {
+	        "className": 'icon-lg icon-correct'
+	      });
+	    }
+	    if (isIncorrect) {
+	      status = React.createElement("i", {
+	        "className": 'icon-lg icon-incorrect'
+	      });
+	    }
+	    if (isEnd) {
+	      title = step.title + " Completion";
+	    }
+	    classes = classnames('task-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className, {
+	      current: isCurrent,
+	      active: isCurrent,
+	      completed: isCompleted,
+	      'status-correct': isCorrect,
+	      'status-incorrect': isIncorrect
+	    });
+	    if (crumb.data.labels != null) {
+	      crumbClasses = _.map(crumb.data.labels, function(label) {
+	        return "icon-" + label;
+	      });
+	    }
+	    iconClasses = classnames("icon-" + crumbType, crumbClasses);
+	    return React.createElement("span", React.__spread({}, propsToPassOn, {
+	      "className": classes,
+	      "title": title,
+	      "onClick": _.partial(goToStep, crumb.key),
+	      "data-chapter": crumb.sectionLabel,
+	      "key": "step-" + crumb.key
+	    }), React.createElement("i", {
+	      "className": "icon-lg " + iconClasses
+	    }), status);
+	  }
+	});
+
+	module.exports = Breadcrumb;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var CardBody, GetPositionMixin, PinnableFooter, PinnedHeader, React, ResizeListenerMixin, ScrollListenerMixin, _, ref;
 
 	React = __webpack_require__(2);
 
 	_ = __webpack_require__(3);
 
-	ScrollListenerMixin = __webpack_require__(21).ScrollListenerMixin;
+	ScrollListenerMixin = __webpack_require__(22).ScrollListenerMixin;
 
-	ResizeListenerMixin = __webpack_require__(22);
+	ResizeListenerMixin = __webpack_require__(23);
 
-	GetPositionMixin = __webpack_require__(23);
+	GetPositionMixin = __webpack_require__(24);
 
 	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
@@ -1855,13 +1976,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_21__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, _;
@@ -1942,7 +2063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = {
