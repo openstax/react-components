@@ -365,21 +365,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	  getInitialState: function() {
+	    var stepState;
+	    return stepState = this.getStepState(this.props);
+	  },
+	  shouldComponentUpdate: function(nextProps, nextState) {
+	    return !(_.isEqual(this.props, nextProps) && this.props.isContinueEnabled === this.isContinueEnabled(this.props, this.state) && this.isContinueEnabled(this.props, this.state) === this.isContinueEnabled(nextProps, nextState));
+	  },
+	  componentWillReceiveProps: function(nextProps) {
+	    var nextStepState;
+	    if (!_.isEqual(this.getStepState(this.props), this.getStepState(nextProps))) {
+	      nextStepState = this.getStepState(nextProps);
+	      return this.setState(nextStepState);
+	    }
+	  },
+	  getStepState: function(props) {
 	    var step;
-	    step = this.props.step;
+	    step = props.step;
 	    return {
-	      freeResponse: step.free_response,
-	      answerId: step.answer_id
+	      freeResponse: step.free_response || '',
+	      answerId: step.answer_id || ''
 	    };
 	  },
-	  isContinueEnabled: function() {
+	  isContinueEnabled: function(props, state) {
 	    var panel, ref2, toCheck;
-	    panel = this.props.panel;
+	    panel = props.panel;
 	    toCheck = CONTINUE_CHECKS[panel];
 	    if (toCheck == null) {
 	      return true;
 	    }
-	    return ((ref2 = this.state[toCheck]) != null ? ref2.trim().length : void 0) > 0;
+	    return ((ref2 = state[toCheck]) != null ? ref2.trim().length : void 0) > 0;
 	  },
 	  onAnswerChanged: function(answer) {
 	    var base;
@@ -422,7 +436,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ControlButtons = CONTROLS[panel];
 	    onInputChange = ON_CHANGE[panel];
 	    controlProps = _.pick(this.props, props.ExReviewControls);
-	    controlProps.isContinueEnabled = isContinueEnabled && this.isContinueEnabled();
+	    controlProps.isContinueEnabled = isContinueEnabled && this.isContinueEnabled(this.props, this.state);
 	    controlProps.onContinue = this.onContinue;
 	    panelProps = _.omit(this.props, props.notPanel);
 	    panelProps.choicesEnabled = !waitingText;
@@ -831,11 +845,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	      free_response: ''
 	    };
 	  },
+	  getInitialState: function() {
+	    return {
+	      freeResponse: this.props.free_response
+	    };
+	  },
 	  componentDidMount: function() {
 	    return this.focusBox();
 	  },
 	  componentDidUpdate: function() {
 	    return this.focusBox();
+	  },
+	  componentWillReceiveProps: function(nextProps) {
+	    if (this.state.freeResponse !== nextProps.free_response) {
+	      return this.setState({
+	        freeResponse: nextProps.free_response
+	      });
+	    }
 	  },
 	  focusBox: function() {
 	    if (this.props.focus) {
@@ -845,11 +871,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  onFreeResponseChange: function() {
 	    var base, freeResponse;
 	    freeResponse = this.refs.freeResponse.getDOMNode().value;
+	    this.setState({
+	      freeResponse: freeResponse
+	    });
 	    return typeof (base = this.props).onFreeResponseChange === "function" ? base.onFreeResponseChange(freeResponse) : void 0;
 	  },
 	  render: function() {
-	    var content, disabled, free_response, onFreeResponseChange, question, ref1;
+	    var content, disabled, freeResponse, free_response, onFreeResponseChange, question, ref1;
 	    ref1 = this.props, content = ref1.content, disabled = ref1.disabled, onFreeResponseChange = ref1.onFreeResponseChange, free_response = ref1.free_response;
+	    freeResponse = this.state.freeResponse;
 	    question = content.questions[0];
 	    return React.createElement("div", {
 	      "className": 'exercise'
@@ -865,7 +895,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "disabled": disabled,
 	      "ref": 'freeResponse',
 	      "placeholder": 'Enter your response',
-	      "defaultValue": free_response,
+	      "value": freeResponse,
 	      "onChange": this.onFreeResponseChange
 	    }), React.createElement("div", {
 	      "className": "exercise-uid"
@@ -1325,7 +1355,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    qid = this.props.model.id || ("auto-" + (idCounter++));
 	    hasCorrectAnswer = !!correct_answer_id;
 	    if (this.props.feedback_html) {
-	      feedback = React.createElement(Feedback, null, this.props.feedback_html);
+	      feedback = React.createElement(Feedback, {
+	        "key": 'question-mc-feedback'
+	      }, this.props.feedback_html);
 	    }
 	    questionAnswerProps = {
 	      qid: this.props.model.id,
