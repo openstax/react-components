@@ -918,6 +918,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      answerId: answer_id
 	    };
 	  },
+	  componentWillReceiveProps: function(nextProps) {
+	    if (this.state.answerId !== nextProps.answer_id) {
+	      return this.setState({
+	        answerId: nextProps.answer_id
+	      });
+	    }
+	  },
 	  onAnswerChanged: function(answer) {
 	    var base;
 	    if (answer.id === this.state.answerId) {
@@ -1697,7 +1704,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    crumb: React.PropTypes.object.isRequired,
 	    goToStep: React.PropTypes.func.isRequired,
 	    step: React.PropTypes.object.isRequired,
-	    canReview: React.PropTypes.boolean,
+	    canReview: React.PropTypes.bool,
 	    currentStep: React.PropTypes.number,
 	    onMouseEnter: React.PropTypes.func,
 	    onMouseLeave: React.PropTypes.func
