@@ -22836,7 +22836,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 169 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, ref;
 
 	Exercise = __webpack_require__(170);
 
@@ -22853,6 +22853,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	Question = __webpack_require__(249);
 
 	ArbitraryHtmlAndMath = __webpack_require__(247);
+
+	SmartOverflow = __webpack_require__(261);
 
 	RefreshButton = __webpack_require__(252);
 
@@ -22875,6 +22877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  PinnableFooter: PinnableFooter,
 	  Question: Question,
 	  ArbitraryHtmlAndMath: ArbitraryHtmlAndMath,
+	  SmartOverflow: SmartOverflow,
 	  RefreshButton: RefreshButton,
 	  AsyncButton: AsyncButton,
 	  ChapterSectionMixin: ChapterSectionMixin,
@@ -32289,6 +32292,89 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return el.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
 	  }
 	};
+
+
+/***/ },
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React, ResizeListenerMixin, SmartOverflow, _;
+
+	React = __webpack_require__(171);
+
+	_ = __webpack_require__(1);
+
+	ResizeListenerMixin = __webpack_require__(259);
+
+	SmartOverflow = React.createClass({displayName: "SmartOverflow",
+	  propTypes: {
+	    heightBuffer: React.PropTypes.number,
+	    marginBottom: React.PropTypes.number
+	  },
+	  getInitialState: function() {
+	    return {
+	      isOverflowing: false,
+	      triggerHeight: null,
+	      style: void 0
+	    };
+	  },
+	  getDefaultProps: function() {
+	    return {
+	      heightBuffer: 20,
+	      marginBottom: 0
+	    };
+	  },
+	  mixins: [ResizeListenerMixin],
+	  getOffset: function() {
+	    var componentNode, topOffset;
+	    componentNode = this.getDOMNode();
+	    return topOffset = componentNode.getBoundingClientRect().top;
+	  },
+	  getTriggerHeight: function() {
+	    var topOffset;
+	    topOffset = this.getOffset();
+	    return topOffset + this.state.sizesInitial.componentEl.height;
+	  },
+	  componentDidUpdate: function() {
+	    var sizes, triggerHeight, triggerHeightState;
+	    if (!(_.isEmpty(this.state.sizesInitial) || (this.state.triggerHeight != null))) {
+	      triggerHeight = this.getTriggerHeight();
+	      triggerHeightState = {
+	        triggerHeight: triggerHeight
+	      };
+	      this.setState(triggerHeightState);
+	      sizes = _.defaults({}, this.state.sizesInitial, triggerHeightState);
+	      return this._resizeListener(sizes);
+	    }
+	  },
+	  _resizeListener: function(sizes) {
+	    var marginBottom, maxHeight, style;
+	    if (sizes.windowEl.height < (sizes.triggerHeight || this.state.triggerHeight)) {
+	      maxHeight = sizes.windowEl.height - this.getOffset() - this.props.heightBuffer;
+	      marginBottom = this.props.marginBottom;
+	      style = {
+	        maxHeight: maxHeight,
+	        marginBottom: marginBottom
+	      };
+	    } else {
+	      style = void 0;
+	    }
+	    return this.setState({
+	      style: style
+	    });
+	  },
+	  render: function() {
+	    var className, classes;
+	    className = this.props.className;
+	    classes = className + " smart-overflow";
+	    return React.createElement("div", {
+	      "className": classes,
+	      "style": this.state.style
+	    }, this.props.children);
+	  }
+	});
+
+	module.exports = SmartOverflow;
 
 
 /***/ }
