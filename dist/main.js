@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, CloseButton, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, ref;
 
 	Exercise = __webpack_require__(1);
 
@@ -78,6 +78,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	AsyncButton = __webpack_require__(17);
 
+	CloseButton = __webpack_require__(26);
+
 	ChapterSectionMixin = __webpack_require__(9);
 
 	GetPositionMixin = __webpack_require__(24);
@@ -98,6 +100,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  SmartOverflow: SmartOverflow,
 	  RefreshButton: RefreshButton,
 	  AsyncButton: AsyncButton,
+	  CloseButton: CloseButton,
 	  ChapterSectionMixin: ChapterSectionMixin,
 	  GetPositionMixin: GetPositionMixin,
 	  ResizeListenerMixin: ResizeListenerMixin
@@ -2196,6 +2199,28 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	module.exports = SmartOverflow;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var React, classnames;
+
+	React = __webpack_require__(2);
+
+	classnames = __webpack_require__(7);
+
+	module.exports = React.createClass({displayName: "exports",
+	  render: function() {
+	    var classNames;
+	    classNames = classnames('close-x', 'close', this.props.className);
+	    return React.createElement("button", React.__spread({}, this.props, {
+	      "className": classNames,
+	      "aria-role": 'close'
+	    }));
+	  }
+	});
 
 
 /***/ }
