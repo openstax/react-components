@@ -1307,13 +1307,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  render: function() {
 	    var wrapperClasses;
-	    wrapperClasses = classnames('question-feedback', 'popover', this.props.position);
+	    wrapperClasses = classnames('question-feedback', this.props.position);
 	    return React.createElement("div", {
 	      "className": wrapperClasses
 	    }, React.createElement("div", {
 	      "className": 'arrow'
 	    }), React.createElement(ArbitraryHtml, {
-	      "className": 'question-feedback-content has-html popover-content',
+	      "className": 'question-feedback-content has-html',
 	      "html": this.props.children,
 	      "block": true
 	    }));
