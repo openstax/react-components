@@ -7,7 +7,7 @@
 		exports["OpenStaxReactComponents"] = factory(require("react"), require("underscore"), require("react/addons"), require("react-bootstrap"), require("react-scroll-components"));
 	else
 		root["OpenStaxReactComponents"] = factory(root["React"], root["_"], root["React.addons"], root["ReactBootstrap"], root["ReactScrollComponents"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_22__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_23__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,7 +54,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, CloseButton, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, CloseButton, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, SpyMode, ref;
 
 	Exercise = __webpack_require__(1);
 
@@ -64,7 +64,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Breadcrumb = __webpack_require__(20);
 
-	PinnedHeaderFooterCard = __webpack_require__(21);
+	SpyMode = __webpack_require__(21);
+
+	PinnedHeaderFooterCard = __webpack_require__(22);
 
 	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
@@ -72,19 +74,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ArbitraryHtmlAndMath = __webpack_require__(13);
 
-	SmartOverflow = __webpack_require__(25);
+	SmartOverflow = __webpack_require__(26);
 
 	RefreshButton = __webpack_require__(18);
 
 	AsyncButton = __webpack_require__(17);
 
-	CloseButton = __webpack_require__(26);
+	CloseButton = __webpack_require__(27);
 
 	ChapterSectionMixin = __webpack_require__(9);
 
-	GetPositionMixin = __webpack_require__(24);
+	GetPositionMixin = __webpack_require__(25);
 
-	ResizeListenerMixin = __webpack_require__(23);
+	ResizeListenerMixin = __webpack_require__(24);
 
 	module.exports = {
 	  Exercise: Exercise,
@@ -103,7 +105,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  CloseButton: CloseButton,
 	  ChapterSectionMixin: ChapterSectionMixin,
 	  GetPositionMixin: GetPositionMixin,
-	  ResizeListenerMixin: ResizeListenerMixin
+	  ResizeListenerMixin: ResizeListenerMixin,
+	  SpyMode: SpyMode
 	};
 
 
@@ -957,9 +960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "correct_answer_id": correct_answer_id
 	    }, React.createElement(FreeResponse, {
 	      "free_response": free_response
-	    }), React.createElement("div", {
-	      "className": 'multiple-choice-prompt'
-	    }, "Choose the best answer from the following:")));
+	    })));
 	  }
 	});
 
@@ -1242,15 +1243,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    disabled: React.PropTypes.bool,
 	    chosenAnswer: React.PropTypes.array,
 	    correctAnswerId: React.PropTypes.string,
-	    answered_count: React.PropTypes.number
+	    answered_count: React.PropTypes.number,
+	    show_all_feedback: React.PropTypes.bool
 	  },
 	  getDefaultProps: function() {
 	    return {
-	      disabled: false
+	      disabled: false,
+	      show_all_feedback: false
 	    };
 	  },
 	  render: function() {
-	    var answer, answered_count, chosenAnswer, classes, correctAnswerId, disabled, hasCorrectAnswer, isChecked, isCorrect, iter, onChangeAnswer, percent, qid, radioBox, ref, selectedCount, type;
+	    var answer, answered_count, chosenAnswer, classes, correctAnswerId, disabled, feedback, hasCorrectAnswer, isChecked, isCorrect, iter, onChangeAnswer, percent, qid, radioBox, ref, selectedCount, type;
 	    ref = this.props, answer = ref.answer, iter = ref.iter, qid = ref.qid, type = ref.type, correctAnswerId = ref.correctAnswerId, answered_count = ref.answered_count, hasCorrectAnswer = ref.hasCorrectAnswer, chosenAnswer = ref.chosenAnswer, onChangeAnswer = ref.onChangeAnswer, disabled = ref.disabled;
 	    if (qid == null) {
 	      qid = "auto-" + (idCounter++);
@@ -1280,7 +1283,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	        "data-percent": "" + percent
 	      });
 	    }
-	    return React.createElement("div", {
+	    if (this.props.show_all_feedback && answer.feedback_html) {
+	      feedback = React.createElement(Feedback, {
+	        "key": 'question-mc-feedback'
+	      }, answer.feedback_html);
+	    }
+	    return React.createElement("div", null, React.createElement("div", {
 	      "className": classes
 	    }, selectedCount, radioBox, React.createElement("label", {
 	      "htmlFor": qid + "-option-" + iter,
@@ -1290,7 +1298,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }), React.createElement(ArbitraryHtml, {
 	      "className": 'answer-content',
 	      "html": answer.content_html
-	    })));
+	    }))), feedback);
 	  }
 	});
 
@@ -1330,6 +1338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    content_uid: React.PropTypes.string,
 	    feedback_html: React.PropTypes.string,
 	    answered_count: React.PropTypes.number,
+	    show_all_feedback: React.PropTypes.bool,
 	    onChange: React.PropTypes.func,
 	    onChangeAttempt: React.PropTypes.func
 	  },
@@ -1340,7 +1349,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  getDefaultProps: function() {
 	    return {
-	      type: 'student'
+	      type: 'student',
+	      show_all_feedback: false
 	    };
 	  },
 	  onChangeAnswer: function(answer) {
@@ -1380,7 +1390,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      onChangeAnswer: this.onChangeAnswer,
 	      type: type,
 	      answered_count: answered_count,
-	      disabled: !choicesEnabled
+	      disabled: !choicesEnabled,
+	      show_all_feedback: this.props.show_all_feedback
 	    };
 	    answers = _.chain(this.props.model.answers).sortBy(function(answer) {
 	      return parseInt(answer.id);
@@ -1814,17 +1825,72 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React, SpyModeContent, SpyModeWrapper, classnames;
+
+	React = __webpack_require__(2);
+
+	classnames = __webpack_require__(7);
+
+	SpyModeWrapper = React.createClass({displayName: "SpyModeWrapper",
+	  propTypes: {
+	    onChange: React.PropTypes.func
+	  },
+	  getInitialState: function() {
+	    return {
+	      isEnabled: false
+	    };
+	  },
+	  toggleDebug: function(ev) {
+	    this.setState({
+	      isEnabled: !this.state.isEnabled
+	    });
+	    return ev.preventDefault();
+	  },
+	  render: function() {
+	    return React.createElement("div", {
+	      "className": classnames('debug-content', {
+	        'is-enabled': this.state.isEnabled
+	      })
+	    }, this.props.children, React.createElement("a", {
+	      "href": '#spy',
+	      "onClick": this.toggleDebug,
+	      "className": 'debug-toggle-link'
+	    }, "π"));
+	  }
+	});
+
+	SpyModeContent = React.createClass({displayName: "SpyModeContent",
+	  propTypes: {
+	    className: React.PropTypes.string
+	  },
+	  render: function() {
+	    return React.createElement("div", {
+	      "className": classnames('visible-when-debugging', this.props.className)
+	    }, this.props.children);
+	  }
+	});
+
+	module.exports = {
+	  Content: SpyModeContent,
+	  Wrapper: SpyModeWrapper
+	};
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var CardBody, GetPositionMixin, PinnableFooter, PinnedHeader, React, ResizeListenerMixin, ScrollListenerMixin, _, ref;
 
 	React = __webpack_require__(2);
 
 	_ = __webpack_require__(3);
 
-	ScrollListenerMixin = __webpack_require__(22).ScrollListenerMixin;
+	ScrollListenerMixin = __webpack_require__(23).ScrollListenerMixin;
 
-	ResizeListenerMixin = __webpack_require__(23);
+	ResizeListenerMixin = __webpack_require__(24);
 
-	GetPositionMixin = __webpack_require__(24);
+	GetPositionMixin = __webpack_require__(25);
 
 	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
@@ -2021,13 +2087,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_22__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, _;
@@ -2108,7 +2174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -2119,7 +2185,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, ResizeListenerMixin, SmartOverflow, _;
@@ -2128,7 +2194,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_ = __webpack_require__(3);
 
-	ResizeListenerMixin = __webpack_require__(23);
+	ResizeListenerMixin = __webpack_require__(24);
 
 	SmartOverflow = React.createClass({displayName: "SmartOverflow",
 	  propTypes: {
@@ -2202,7 +2268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, classnames;
