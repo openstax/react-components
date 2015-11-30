@@ -241,7 +241,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var teacherReadOnlyProps;
 	    teacherReadOnlyProps = _.omit(this.props, NOT_TEACHER_READ_ONLY_PROPS);
 	    teacherReadOnlyProps.onContinue = this.props.onNextStep;
-	    teacherReadOnlyProps.isContinueEnabled = true;
 	    teacherReadOnlyProps.controlButtons = false;
 	    teacherReadOnlyProps.type = 'teacher-review';
 	    return teacherReadOnlyProps;
