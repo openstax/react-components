@@ -2,6 +2,7 @@ React = require 'react/addons'
 _ = require 'underscore'
 
 classnames = require 'classnames'
+keymaster = require 'keymaster'
 
 ExerciseGroup = require './group'
 {CardBody} = require '../pinned-header-footer-card/sections'
@@ -28,6 +29,12 @@ CONTROLS =
   'review': ExReviewControls
   'teacher-read-only': ExContinueButton
 
+CONTROLS_TEXT =
+  'free-response': 'Answer'
+  'multiple-choice': 'Submit'
+  'review': 'Next Question'
+  'teacher-read-only': 'Next Question'
+
 CONTINUE_CHECKS =
   'free-response': 'freeResponse'
   'multiple-choice': 'answerId'
@@ -53,8 +60,16 @@ ExerciseStepCard = React.createClass
     disabled: false
     isContinueEnabled: true
     footer: <ExerciseDefaultFooter/>
+    allowKeyNext: true
+
   getInitialState: ->
     stepState = @getStepState(@props)
+
+  componentWillMount: ->
+    keymaster('enter', @onContinue) if @props.allowKeyNext
+
+  componentWilUnmount: ->
+    keymaster.unbind('enter') if @props.allowKeyNext
 
   shouldComponentUpdate: (nextProps, nextState) ->
     not (_.isEqual(@props, nextProps) and
@@ -65,6 +80,15 @@ ExerciseStepCard = React.createClass
     unless _.isEqual(@getStepState(@props), @getStepState(nextProps))
       nextStepState = @getStepState(nextProps)
       @setState(nextStepState)
+
+    if @props.allowKeyNext isnt nextProps.allowKeyNext
+      @updateKeyBind(nextProps.allowKeyNext)
+
+  updateKeyBind: (allowKeyNext) ->
+    if allowKeyNext
+      keymaster('enter', @onContinue)
+    else
+      keymaster.unbind('enter')
 
   getStepState: (props) ->
     {step} = props
@@ -90,7 +114,9 @@ ExerciseStepCard = React.createClass
     @props.onChangeAnswerAttempt?(answer)
 
   onContinue: ->
-    {panel, canReview, onNextStep, onStepCompleted, onContinue} = @props
+    {panel, canReview, onNextStep, onStepCompleted, onContinue, isContinueEnabled} = @props
+
+    return unless isContinueEnabled and @isContinueEnabled(@props, @state)
 
     if onContinue?
       onContinue(@state)
@@ -107,10 +133,12 @@ ExerciseStepCard = React.createClass
     ExPanel = PANELS[panel]
     ControlButtons = CONTROLS[panel]
     onInputChange = ON_CHANGE[panel]
+    controlText = CONTROLS_TEXT[panel]
 
     controlProps = _.pick(@props, props.ExReviewControls)
     controlProps.isContinueEnabled = isContinueEnabled and @isContinueEnabled(@props, @state)
     controlProps.onContinue = @onContinue
+    controlProps.children = controlText
 
     panelProps = _.omit(@props, props.notPanel)
     panelProps.choicesEnabled = not waitingText
@@ -120,7 +148,7 @@ ExerciseStepCard = React.createClass
     footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
     footer = React.addons.cloneWithProps(footer, footerProps)
 
-    cardClasses = classnames 'task-step', 'exercise-card', className
+    cardClasses = classnames 'task-step', 'openstax-exercise-card', className
 
     <CardBody className={cardClasses} footer={footer} pinned={pinned}>
       <div className="exercise-#{panel}">
