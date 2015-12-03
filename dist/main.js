@@ -7,7 +7,7 @@
 		exports["OpenStaxReactComponents"] = factory(require("react"), require("underscore"), require("react/addons"), require("react-bootstrap"), require("react-scroll-components"));
 	else
 		root["OpenStaxReactComponents"] = factory(root["React"], root["_"], root["React.addons"], root["ReactBootstrap"], root["ReactScrollComponents"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_12__, __WEBPACK_EXTERNAL_MODULE_23__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_25__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,39 +54,41 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, CloseButton, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, SpyMode, ref;
+	var ArbitraryHtmlAndMath, AsyncButton, Breadcrumb, CardBody, ChapterSectionMixin, CloseButton, Exercise, ExerciseGroup, FreeResponse, GetPositionMixin, KeysHelper, PinnableFooter, PinnedHeader, PinnedHeaderFooterCard, Question, RefreshButton, ResizeListenerMixin, SmartOverflow, SpyMode, ref;
 
 	Exercise = __webpack_require__(1);
 
-	FreeResponse = __webpack_require__(16);
+	FreeResponse = __webpack_require__(18);
 
-	ExerciseGroup = __webpack_require__(8);
+	ExerciseGroup = __webpack_require__(9);
 
-	Breadcrumb = __webpack_require__(20);
+	Breadcrumb = __webpack_require__(22);
 
-	SpyMode = __webpack_require__(21);
+	SpyMode = __webpack_require__(23);
 
-	PinnedHeaderFooterCard = __webpack_require__(22);
+	PinnedHeaderFooterCard = __webpack_require__(24);
 
-	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
+	ref = __webpack_require__(11), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
-	Question = __webpack_require__(15);
+	Question = __webpack_require__(16);
 
-	ArbitraryHtmlAndMath = __webpack_require__(13);
+	ArbitraryHtmlAndMath = __webpack_require__(14);
 
-	SmartOverflow = __webpack_require__(26);
+	SmartOverflow = __webpack_require__(28);
 
-	RefreshButton = __webpack_require__(18);
+	RefreshButton = __webpack_require__(20);
 
-	AsyncButton = __webpack_require__(17);
+	AsyncButton = __webpack_require__(19);
 
-	CloseButton = __webpack_require__(27);
+	CloseButton = __webpack_require__(29);
 
-	ChapterSectionMixin = __webpack_require__(9);
+	ChapterSectionMixin = __webpack_require__(10);
 
-	GetPositionMixin = __webpack_require__(25);
+	GetPositionMixin = __webpack_require__(27);
 
-	ResizeListenerMixin = __webpack_require__(24);
+	ResizeListenerMixin = __webpack_require__(26);
+
+	KeysHelper = __webpack_require__(17);
 
 	module.exports = {
 	  Exercise: Exercise,
@@ -106,7 +108,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  ChapterSectionMixin: ChapterSectionMixin,
 	  GetPositionMixin: GetPositionMixin,
 	  ResizeListenerMixin: ResizeListenerMixin,
-	  SpyMode: SpyMode
+	  SpyMode: SpyMode,
+	  KeysHelper: KeysHelper
 	};
 
 
@@ -124,7 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	ExerciseStepCard = __webpack_require__(5);
 
-	propTypes = __webpack_require__(19).propTypes;
+	propTypes = __webpack_require__(21).propTypes;
 
 	step = propTypes.ExerciseStepCard.step;
 
@@ -311,7 +314,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var CONTINUE_CHECKS, CONTROLS, CardBody, ExContinueButton, ExFreeResponse, ExMultipleChoice, ExReview, ExReviewControls, ExerciseDefaultFooter, ExerciseGroup, ExerciseStepCard, ON_CHANGE, PANELS, React, _, classnames, propTypes, props, ref, ref1;
+	var CONTINUE_CHECKS, CONTROLS, CONTROLS_TEXT, CardBody, ExContinueButton, ExFreeResponse, ExMultipleChoice, ExReview, ExReviewControls, ExerciseDefaultFooter, ExerciseGroup, ExerciseStepCard, ON_CHANGE, PANELS, React, _, classnames, keymaster, propTypes, props, ref, ref1;
 
 	React = __webpack_require__(6);
 
@@ -319,13 +322,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	classnames = __webpack_require__(7);
 
-	ExerciseGroup = __webpack_require__(8);
+	keymaster = __webpack_require__(8);
 
-	CardBody = __webpack_require__(10).CardBody;
+	ExerciseGroup = __webpack_require__(9);
 
-	ref = __webpack_require__(11), ExContinueButton = ref.ExContinueButton, ExReviewControls = ref.ExReviewControls, ExFreeResponse = ref.ExFreeResponse, ExMultipleChoice = ref.ExMultipleChoice, ExReview = ref.ExReview;
+	CardBody = __webpack_require__(11).CardBody;
 
-	ref1 = __webpack_require__(19), propTypes = ref1.propTypes, props = ref1.props;
+	ref = __webpack_require__(12), ExContinueButton = ref.ExContinueButton, ExReviewControls = ref.ExReviewControls, ExFreeResponse = ref.ExFreeResponse, ExMultipleChoice = ref.ExMultipleChoice, ExReview = ref.ExReview;
+
+	ref1 = __webpack_require__(21), propTypes = ref1.propTypes, props = ref1.props;
 
 	PANELS = {
 	  'free-response': ExFreeResponse,
@@ -339,6 +344,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	  'multiple-choice': ExContinueButton,
 	  'review': ExReviewControls,
 	  'teacher-read-only': ExContinueButton
+	};
+
+	CONTROLS_TEXT = {
+	  'free-response': 'Answer',
+	  'multiple-choice': 'Submit',
+	  'review': 'Next Question',
+	  'teacher-read-only': 'Next Question'
 	};
 
 	CONTINUE_CHECKS = {
@@ -369,12 +381,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return {
 	      disabled: false,
 	      isContinueEnabled: true,
-	      footer: React.createElement(ExerciseDefaultFooter, null)
+	      footer: React.createElement(ExerciseDefaultFooter, null),
+	      allowKeyNext: true
 	    };
 	  },
 	  getInitialState: function() {
 	    var stepState;
 	    return stepState = this.getStepState(this.props);
+	  },
+	  componentWillMount: function() {
+	    if (this.props.allowKeyNext) {
+	      return keymaster('enter', this.onContinue);
+	    }
+	  },
+	  componentWilUnmount: function() {
+	    if (this.props.allowKeyNext) {
+	      return keymaster.unbind('enter');
+	    }
 	  },
 	  shouldComponentUpdate: function(nextProps, nextState) {
 	    return !(_.isEqual(this.props, nextProps) && this.props.isContinueEnabled === this.isContinueEnabled(this.props, this.state) && this.isContinueEnabled(this.props, this.state) === this.isContinueEnabled(nextProps, nextState));
@@ -383,7 +406,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var nextStepState;
 	    if (!_.isEqual(this.getStepState(this.props), this.getStepState(nextProps))) {
 	      nextStepState = this.getStepState(nextProps);
-	      return this.setState(nextStepState);
+	      this.setState(nextStepState);
+	    }
+	    if (this.props.allowKeyNext !== nextProps.allowKeyNext) {
+	      return this.updateKeyBind(nextProps.allowKeyNext);
+	    }
+	  },
+	  updateKeyBind: function(allowKeyNext) {
+	    if (allowKeyNext) {
+	      return keymaster('enter', this.onContinue);
+	    } else {
+	      return keymaster.unbind('enter');
 	    }
 	  },
 	  getStepState: function(props) {
@@ -423,8 +456,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return typeof (base = this.props).onChangeAnswerAttempt === "function" ? base.onChangeAnswerAttempt(answer) : void 0;
 	  },
 	  onContinue: function() {
-	    var canReview, onContinue, onNextStep, onStepCompleted, panel, ref2;
-	    ref2 = this.props, panel = ref2.panel, canReview = ref2.canReview, onNextStep = ref2.onNextStep, onStepCompleted = ref2.onStepCompleted, onContinue = ref2.onContinue;
+	    var canReview, isContinueEnabled, onContinue, onNextStep, onStepCompleted, panel, ref2;
+	    ref2 = this.props, panel = ref2.panel, canReview = ref2.canReview, onNextStep = ref2.onNextStep, onStepCompleted = ref2.onStepCompleted, onContinue = ref2.onContinue, isContinueEnabled = ref2.isContinueEnabled;
+	    if (!(isContinueEnabled && this.isContinueEnabled(this.props, this.state))) {
+	      return;
+	    }
 	    if (onContinue != null) {
 	      onContinue(this.state);
 	      return;
@@ -437,22 +473,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 	  render: function() {
-	    var ControlButtons, ExPanel, cardClasses, className, controlButtons, controlProps, footer, footerProps, group, isContinueEnabled, onInputChange, panel, panelProps, pinned, ref2, related_content, step, waitingText;
+	    var ControlButtons, ExPanel, cardClasses, className, controlButtons, controlProps, controlText, footer, footerProps, group, isContinueEnabled, onInputChange, panel, panelProps, pinned, ref2, related_content, step, waitingText;
 	    ref2 = this.props, step = ref2.step, panel = ref2.panel, pinned = ref2.pinned, isContinueEnabled = ref2.isContinueEnabled, waitingText = ref2.waitingText, controlButtons = ref2.controlButtons, className = ref2.className, footer = ref2.footer;
 	    group = step.group, related_content = step.related_content;
 	    ExPanel = PANELS[panel];
 	    ControlButtons = CONTROLS[panel];
 	    onInputChange = ON_CHANGE[panel];
+	    controlText = CONTROLS_TEXT[panel];
 	    controlProps = _.pick(this.props, props.ExReviewControls);
 	    controlProps.isContinueEnabled = isContinueEnabled && this.isContinueEnabled(this.props, this.state);
 	    controlProps.onContinue = this.onContinue;
+	    controlProps.children = controlText;
 	    panelProps = _.omit(this.props, props.notPanel);
 	    panelProps.choicesEnabled = !waitingText;
 	    panelProps[onInputChange] = this[onInputChange];
 	    footerProps = _.pick(this.props, props.StepFooter);
 	    footerProps.controlButtons = controlButtons || React.createElement(ControlButtons, React.__spread({}, controlProps));
 	    footer = React.addons.cloneWithProps(footer, footerProps);
-	    cardClasses = classnames('task-step', 'exercise-card', className);
+	    cardClasses = classnames('task-step', 'openstax-exercise-card', className);
 	    return React.createElement(CardBody, {
 	      "className": cardClasses,
 	      "footer": footer,
@@ -534,6 +572,308 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
+	//     keymaster.js
+	//     (c) 2011-2013 Thomas Fuchs
+	//     keymaster.js may be freely distributed under the MIT license.
+
+	;(function(global){
+	  var k,
+	    _handlers = {},
+	    _mods = { 16: false, 18: false, 17: false, 91: false },
+	    _scope = 'all',
+	    // modifier keys
+	    _MODIFIERS = {
+	      '⇧': 16, shift: 16,
+	      '⌥': 18, alt: 18, option: 18,
+	      '⌃': 17, ctrl: 17, control: 17,
+	      '⌘': 91, command: 91
+	    },
+	    // special keys
+	    _MAP = {
+	      backspace: 8, tab: 9, clear: 12,
+	      enter: 13, 'return': 13,
+	      esc: 27, escape: 27, space: 32,
+	      left: 37, up: 38,
+	      right: 39, down: 40,
+	      del: 46, 'delete': 46,
+	      home: 36, end: 35,
+	      pageup: 33, pagedown: 34,
+	      ',': 188, '.': 190, '/': 191,
+	      '`': 192, '-': 189, '=': 187,
+	      ';': 186, '\'': 222,
+	      '[': 219, ']': 221, '\\': 220
+	    },
+	    code = function(x){
+	      return _MAP[x] || x.toUpperCase().charCodeAt(0);
+	    },
+	    _downKeys = [];
+
+	  for(k=1;k<20;k++) _MAP['f'+k] = 111+k;
+
+	  // IE doesn't support Array#indexOf, so have a simple replacement
+	  function index(array, item){
+	    var i = array.length;
+	    while(i--) if(array[i]===item) return i;
+	    return -1;
+	  }
+
+	  // for comparing mods before unassignment
+	  function compareArray(a1, a2) {
+	    if (a1.length != a2.length) return false;
+	    for (var i = 0; i < a1.length; i++) {
+	        if (a1[i] !== a2[i]) return false;
+	    }
+	    return true;
+	  }
+
+	  var modifierMap = {
+	      16:'shiftKey',
+	      18:'altKey',
+	      17:'ctrlKey',
+	      91:'metaKey'
+	  };
+	  function updateModifierKey(event) {
+	      for(k in _mods) _mods[k] = event[modifierMap[k]];
+	  };
+
+	  // handle keydown event
+	  function dispatch(event) {
+	    var key, handler, k, i, modifiersMatch, scope;
+	    key = event.keyCode;
+
+	    if (index(_downKeys, key) == -1) {
+	        _downKeys.push(key);
+	    }
+
+	    // if a modifier key, set the key.<modifierkeyname> property to true and return
+	    if(key == 93 || key == 224) key = 91; // right command on webkit, command on Gecko
+	    if(key in _mods) {
+	      _mods[key] = true;
+	      // 'assignKey' from inside this closure is exported to window.key
+	      for(k in _MODIFIERS) if(_MODIFIERS[k] == key) assignKey[k] = true;
+	      return;
+	    }
+	    updateModifierKey(event);
+
+	    // see if we need to ignore the keypress (filter() can can be overridden)
+	    // by default ignore key presses if a select, textarea, or input is focused
+	    if(!assignKey.filter.call(this, event)) return;
+
+	    // abort if no potentially matching shortcuts found
+	    if (!(key in _handlers)) return;
+
+	    scope = getScope();
+
+	    // for each potential shortcut
+	    for (i = 0; i < _handlers[key].length; i++) {
+	      handler = _handlers[key][i];
+
+	      // see if it's in the current scope
+	      if(handler.scope == scope || handler.scope == 'all'){
+	        // check if modifiers match if any
+	        modifiersMatch = handler.mods.length > 0;
+	        for(k in _mods)
+	          if((!_mods[k] && index(handler.mods, +k) > -1) ||
+	            (_mods[k] && index(handler.mods, +k) == -1)) modifiersMatch = false;
+	        // call the handler and stop the event if neccessary
+	        if((handler.mods.length == 0 && !_mods[16] && !_mods[18] && !_mods[17] && !_mods[91]) || modifiersMatch){
+	          if(handler.method(event, handler)===false){
+	            if(event.preventDefault) event.preventDefault();
+	              else event.returnValue = false;
+	            if(event.stopPropagation) event.stopPropagation();
+	            if(event.cancelBubble) event.cancelBubble = true;
+	          }
+	        }
+	      }
+	    }
+	  };
+
+	  // unset modifier keys on keyup
+	  function clearModifier(event){
+	    var key = event.keyCode, k,
+	        i = index(_downKeys, key);
+
+	    // remove key from _downKeys
+	    if (i >= 0) {
+	        _downKeys.splice(i, 1);
+	    }
+
+	    if(key == 93 || key == 224) key = 91;
+	    if(key in _mods) {
+	      _mods[key] = false;
+	      for(k in _MODIFIERS) if(_MODIFIERS[k] == key) assignKey[k] = false;
+	    }
+	  };
+
+	  function resetModifiers() {
+	    for(k in _mods) _mods[k] = false;
+	    for(k in _MODIFIERS) assignKey[k] = false;
+	  };
+
+	  // parse and assign shortcut
+	  function assignKey(key, scope, method){
+	    var keys, mods;
+	    keys = getKeys(key);
+	    if (method === undefined) {
+	      method = scope;
+	      scope = 'all';
+	    }
+
+	    // for each shortcut
+	    for (var i = 0; i < keys.length; i++) {
+	      // set modifier keys if any
+	      mods = [];
+	      key = keys[i].split('+');
+	      if (key.length > 1){
+	        mods = getMods(key);
+	        key = [key[key.length-1]];
+	      }
+	      // convert to keycode and...
+	      key = key[0]
+	      key = code(key);
+	      // ...store handler
+	      if (!(key in _handlers)) _handlers[key] = [];
+	      _handlers[key].push({ shortcut: keys[i], scope: scope, method: method, key: keys[i], mods: mods });
+	    }
+	  };
+
+	  // unbind all handlers for given key in current scope
+	  function unbindKey(key, scope) {
+	    var multipleKeys, keys,
+	      mods = [],
+	      i, j, obj;
+
+	    multipleKeys = getKeys(key);
+
+	    for (j = 0; j < multipleKeys.length; j++) {
+	      keys = multipleKeys[j].split('+');
+
+	      if (keys.length > 1) {
+	        mods = getMods(keys);
+	        key = keys[keys.length - 1];
+	      }
+
+	      key = code(key);
+
+	      if (scope === undefined) {
+	        scope = getScope();
+	      }
+	      if (!_handlers[key]) {
+	        return;
+	      }
+	      for (i = 0; i < _handlers[key].length; i++) {
+	        obj = _handlers[key][i];
+	        // only clear handlers if correct scope and mods match
+	        if (obj.scope === scope && compareArray(obj.mods, mods)) {
+	          _handlers[key][i] = {};
+	        }
+	      }
+	    }
+	  };
+
+	  // Returns true if the key with code 'keyCode' is currently down
+	  // Converts strings into key codes.
+	  function isPressed(keyCode) {
+	      if (typeof(keyCode)=='string') {
+	        keyCode = code(keyCode);
+	      }
+	      return index(_downKeys, keyCode) != -1;
+	  }
+
+	  function getPressedKeyCodes() {
+	      return _downKeys.slice(0);
+	  }
+
+	  function filter(event){
+	    var tagName = (event.target || event.srcElement).tagName;
+	    // ignore keypressed in any elements that support keyboard data input
+	    return !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA');
+	  }
+
+	  // initialize key.<modifier> to false
+	  for(k in _MODIFIERS) assignKey[k] = false;
+
+	  // set current scope (default 'all')
+	  function setScope(scope){ _scope = scope || 'all' };
+	  function getScope(){ return _scope || 'all' };
+
+	  // delete all handlers for a given scope
+	  function deleteScope(scope){
+	    var key, handlers, i;
+
+	    for (key in _handlers) {
+	      handlers = _handlers[key];
+	      for (i = 0; i < handlers.length; ) {
+	        if (handlers[i].scope === scope) handlers.splice(i, 1);
+	        else i++;
+	      }
+	    }
+	  };
+
+	  // abstract key logic for assign and unassign
+	  function getKeys(key) {
+	    var keys;
+	    key = key.replace(/\s/g, '');
+	    keys = key.split(',');
+	    if ((keys[keys.length - 1]) == '') {
+	      keys[keys.length - 2] += ',';
+	    }
+	    return keys;
+	  }
+
+	  // abstract mods logic for assign and unassign
+	  function getMods(key) {
+	    var mods = key.slice(0, key.length - 1);
+	    for (var mi = 0; mi < mods.length; mi++)
+	    mods[mi] = _MODIFIERS[mods[mi]];
+	    return mods;
+	  }
+
+	  // cross-browser events
+	  function addEvent(object, event, method) {
+	    if (object.addEventListener)
+	      object.addEventListener(event, method, false);
+	    else if(object.attachEvent)
+	      object.attachEvent('on'+event, function(){ method(window.event) });
+	  };
+
+	  // set the handlers globally on document
+	  addEvent(document, 'keydown', function(event) { dispatch(event) }); // Passing _scope to a callback to ensure it remains the same by execution. Fixes #48
+	  addEvent(document, 'keyup', clearModifier);
+
+	  // reset modifiers to false whenever the window is (re)focused.
+	  addEvent(window, 'focus', resetModifiers);
+
+	  // store previously defined key
+	  var previousKey = global.key;
+
+	  // restore previously defined key and return reference to our key object
+	  function noConflict() {
+	    var k = global.key;
+	    global.key = previousKey;
+	    return k;
+	  }
+
+	  // set window.key and window.key.set/get/deleteScope, and the default filter
+	  global.key = assignKey;
+	  global.key.setScope = setScope;
+	  global.key.getScope = getScope;
+	  global.key.deleteScope = deleteScope;
+	  global.key.filter = filter;
+	  global.key.isPressed = isPressed;
+	  global.key.getPressedKeyCodes = getPressedKeyCodes;
+	  global.key.noConflict = noConflict;
+	  global.key.unbind = unbindKey;
+
+	  if(true) module.exports = assignKey;
+
+	})(this);
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var ChapterSectionMixin, DEFAULT_GROUP, ExerciseGroup, RULES, React, _, camelCase;
 
 	React = __webpack_require__(2);
@@ -542,7 +882,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	camelCase = __webpack_require__(4);
 
-	ChapterSectionMixin = __webpack_require__(9);
+	ChapterSectionMixin = __webpack_require__(10);
 
 	DEFAULT_GROUP = {
 	  show: false
@@ -601,11 +941,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	      className = group.replace(' ', '_');
 	      labels = this.getGroupLabel(group, related_content);
 	      groupDOM = React.createElement("div", {
-	        "className": 'task-step-group'
+	        "className": 'openstax-step-group'
 	      }, React.createElement("i", {
 	        "className": "icon-sm icon-" + className
 	      }), React.createElement("span", {
-	        "className": 'task-step-group-label'
+	        "className": 'openstax-step-group-label'
 	      }, labels));
 	    }
 	    return groupDOM;
@@ -616,7 +956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var _;
@@ -654,7 +994,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var CardBody, PinnableFooter, PinnedHeader, React;
@@ -743,30 +1083,30 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var ArbitraryHtmlAndMath, AsyncButton, BS, CardBody, ExContinueButton, ExFreeResponse, ExMultipleChoice, ExReview, ExReviewControls, ExerciseGroup, FreeResponse, Question, React, _, propTypes, props, ref;
 
 	React = __webpack_require__(2);
 
-	BS = __webpack_require__(12);
+	BS = __webpack_require__(13);
 
 	_ = __webpack_require__(3);
 
-	ArbitraryHtmlAndMath = __webpack_require__(13);
+	ArbitraryHtmlAndMath = __webpack_require__(14);
 
-	Question = __webpack_require__(15);
+	Question = __webpack_require__(16);
 
-	FreeResponse = __webpack_require__(16);
+	FreeResponse = __webpack_require__(18);
 
-	AsyncButton = __webpack_require__(17);
+	AsyncButton = __webpack_require__(19);
 
-	ExerciseGroup = __webpack_require__(8);
+	ExerciseGroup = __webpack_require__(9);
 
-	CardBody = __webpack_require__(10).CardBody;
+	CardBody = __webpack_require__(11).CardBody;
 
-	ref = __webpack_require__(19), propTypes = ref.propTypes, props = ref.props;
+	ref = __webpack_require__(21), propTypes = ref.propTypes, props = ref.props;
 
 	ExContinueButton = React.createClass({
 	  displayName: 'ExContinueButton',
@@ -807,11 +1147,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	  render: function() {
-	    var canRefreshMemory, canTryAnother, continueButton, continueButtonText, isContinueEnabled, isContinueFailed, isRecovering, onContinue, ref1, ref2, ref3, refreshMemory, refreshMemoryButton, review, tryAnother, tryAnotherButton, waitingText;
-	    ref1 = this.props, review = ref1.review, canTryAnother = ref1.canTryAnother, tryAnother = ref1.tryAnother, isRecovering = ref1.isRecovering;
+	    var canRefreshMemory, canTryAnother, children, continueButton, continueButtonText, isContinueEnabled, isContinueFailed, isRecovering, onContinue, ref1, ref2, ref3, refreshMemory, refreshMemoryButton, review, tryAnother, tryAnotherButton, waitingText;
+	    ref1 = this.props, review = ref1.review, canTryAnother = ref1.canTryAnother, tryAnother = ref1.tryAnother, isRecovering = ref1.isRecovering, children = ref1.children;
 	    ref2 = this.props, canRefreshMemory = ref2.canRefreshMemory, refreshMemory = ref2.refreshMemory;
 	    ref3 = this.props, isContinueFailed = ref3.isContinueFailed, waitingText = ref3.waitingText, onContinue = ref3.onContinue, isContinueEnabled = ref3.isContinueEnabled;
-	    continueButtonText = canTryAnother ? 'Move On' : '';
+	    continueButtonText = canTryAnother ? 'Move On' : children;
 	    if (canTryAnother) {
 	      tryAnotherButton = React.createElement(AsyncButton, {
 	        "key": 'step-try-another',
@@ -890,7 +1230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    freeResponse = this.state.freeResponse;
 	    question = content.questions[0];
 	    return React.createElement("div", {
-	      "className": 'exercise'
+	      "className": 'openstax-exercise'
 	    }, React.createElement(ArbitraryHtmlAndMath, {
 	      "className": 'stimulus',
 	      "block": true,
@@ -944,19 +1284,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return typeof (base = this.props).onAnswerChanged === "function" ? base.onAnswerChanged(answer) : void 0;
 	  },
 	  render: function() {
-	    var answerId, choicesEnabled, content, correct_answer_id, free_response, question, ref1;
-	    ref1 = this.props, content = ref1.content, free_response = ref1.free_response, correct_answer_id = ref1.correct_answer_id, choicesEnabled = ref1.choicesEnabled;
+	    var answerId, answerKeySet, choicesEnabled, content, correct_answer_id, free_response, question, ref1;
+	    ref1 = this.props, content = ref1.content, free_response = ref1.free_response, correct_answer_id = ref1.correct_answer_id, choicesEnabled = ref1.choicesEnabled, answerKeySet = ref1.answerKeySet;
 	    question = content.questions[0];
 	    answerId = this.state.answerId;
 	    return React.createElement("div", {
-	      "className": 'exercise'
+	      "className": 'openstax-exercise'
 	    }, React.createElement(Question, {
 	      "answer_id": answerId,
 	      "onChange": this.onAnswerChanged,
 	      "choicesEnabled": choicesEnabled,
 	      "model": question,
 	      "exercise_uid": content.uid,
-	      "correct_answer_id": correct_answer_id
+	      "correct_answer_id": correct_answer_id,
+	      "keySet": answerKeySet
 	    }, React.createElement(FreeResponse, {
 	      "free_response": free_response
 	    })));
@@ -971,7 +1312,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    ref1 = this.props, content = ref1.content, free_response = ref1.free_response, answer_id = ref1.answer_id, correct_answer_id = ref1.correct_answer_id, feedback_html = ref1.feedback_html, type = ref1.type, onChangeAnswerAttempt = ref1.onChangeAnswerAttempt;
 	    question = content.questions[0];
 	    return React.createElement("div", {
-	      "className": 'exercise'
+	      "className": 'openstax-exercise'
 	    }, React.createElement(Question, {
 	      "key": 'step-question',
 	      "model": question,
@@ -997,22 +1338,24 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_12__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React, _, typesetMath;
+	var React, _, classnames, typesetMath;
 
 	React = __webpack_require__(2);
 
 	_ = __webpack_require__(3);
 
-	typesetMath = __webpack_require__(14).typesetMath;
+	classnames = __webpack_require__(7);
+
+	typesetMath = __webpack_require__(15).typesetMath;
 
 	module.exports = React.createClass({
 	  displayName: 'ArbitraryHtmlAndMath',
@@ -1027,14 +1370,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	  render: function() {
-	    var classes, otherProps;
-	    classes = ['has-html'];
-	    if (this.props.className) {
-	      classes.push(this.props.className);
-	    }
-	    classes = classes.join(' ');
+	    var block, className, classes, otherProps, ref;
+	    ref = this.props, className = ref.className, block = ref.block;
+	    classes = classnames('openstax-has-html', className);
 	    otherProps = _.omit(this.props, 'className', 'block', 'html');
-	    if (this.props.block) {
+	    if (block) {
 	      return React.createElement("div", React.__spread({}, otherProps, {
 	        "className": classes,
 	        "dangerouslySetInnerHTML": this.getHTMLFromProp()
@@ -1087,7 +1427,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var COMBINED_MATH_SELECTOR, MATH_DATA_SELECTOR, MATH_MARKER_BLOCK, MATH_MARKER_INLINE, MATH_ML_SELECTOR, _, cleanMathArtifacts, startMathJax, typesetDocument, typesetMath;
@@ -1195,10 +1535,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Answer, ArbitraryHtml, Feedback, React, _, classnames, idCounter, isAnswerChecked, isAnswerCorrect,
+	var Answer, ArbitraryHtml, Feedback, KEYS, KEYSETS_PROPS, React, _, classnames, idCounter, isAnswerChecked, isAnswerCorrect, keymaster, keysHelper,
 	  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 	React = __webpack_require__(2);
@@ -1207,7 +1547,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	classnames = __webpack_require__(7);
 
-	ArbitraryHtml = __webpack_require__(13);
+	keymaster = __webpack_require__(8);
+
+	keysHelper = __webpack_require__(17);
+
+	KEYS = {
+	  'multiple-choice-numbers': _.range(1, 10)
+	};
+
+	KEYS['multiple-choice-alpha'] = _.map(KEYS['multiple-choice-numbers'], _.partial(keysHelper.getCharFromNumKey, _, null));
+
+	KEYS['multiple-choice'] = _.zip(KEYS['multiple-choice-numbers'], KEYS['multiple-choice-alpha']);
+
+	KEYSETS_PROPS = _.keys(KEYS);
+
+	KEYSETS_PROPS.push(null);
+
+	ArbitraryHtml = __webpack_require__(14);
 
 	idCounter = 0;
 
@@ -1243,13 +1599,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	    chosenAnswer: React.PropTypes.array,
 	    correctAnswerId: React.PropTypes.string,
 	    answered_count: React.PropTypes.number,
-	    show_all_feedback: React.PropTypes.bool
+	    show_all_feedback: React.PropTypes.bool,
+	    keyControl: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number, React.PropTypes.array])
 	  },
 	  getDefaultProps: function() {
 	    return {
 	      disabled: false,
 	      show_all_feedback: false
 	    };
+	  },
+	  componentWillMount: function() {
+	    var answer, disabled, keyControl, keyInAnswer, onChangeAnswer, ref;
+	    ref = this.props, answer = ref.answer, onChangeAnswer = ref.onChangeAnswer, disabled = ref.disabled, keyControl = ref.keyControl;
+	    if (keyControl && !disabled) {
+	      keyInAnswer = _.partial(onChangeAnswer, answer);
+	      keysHelper.on(keyControl, 'multiple-choice', keyInAnswer);
+	      return keymaster.setScope('multiple-choice');
+	    }
+	  },
+	  componentWillUnmount: function() {
+	    var disabled, keyControl, ref;
+	    ref = this.props, disabled = ref.disabled, keyControl = ref.keyControl;
+	    if (keyControl && !disabled) {
+	      return keysHelper.off(keyControl, 'multiple-choice');
+	    }
 	  },
 	  render: function() {
 	    var answer, answered_count, chosenAnswer, classes, correctAnswerId, disabled, feedback, hasCorrectAnswer, isChecked, isCorrect, iter, onChangeAnswer, percent, qid, radioBox, ref, selectedCount, type;
@@ -1270,7 +1643,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        "checked": isChecked,
 	        "id": qid + "-option-" + iter,
 	        "name": qid + "-options",
-	        "onChange": onChangeAnswer(answer),
+	        "onChange": _.partial(onChangeAnswer, answer),
 	        "disabled": disabled
 	      });
 	    }
@@ -1339,7 +1712,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    answered_count: React.PropTypes.number,
 	    show_all_feedback: React.PropTypes.bool,
 	    onChange: React.PropTypes.func,
-	    onChangeAttempt: React.PropTypes.func
+	    onChangeAttempt: React.PropTypes.func,
+	    keySet: React.PropTypes.oneOf(KEYSETS_PROPS)
 	  },
 	  getInitialState: function() {
 	    return {
@@ -1349,28 +1723,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	  getDefaultProps: function() {
 	    return {
 	      type: 'student',
-	      show_all_feedback: false
+	      show_all_feedback: false,
+	      keySet: 'multiple-choice'
 	    };
 	  },
-	  onChangeAnswer: function(answer) {
-	    return (function(_this) {
-	      return function(changeEvent) {
-	        var base;
-	        if (_this.props.onChange != null) {
-	          _this.setState({
-	            answer_id: answer.id
-	          });
-	          return _this.props.onChange(answer);
-	        } else {
-	          changeEvent.preventDefault();
-	          return typeof (base = _this.props).onChangeAttempt === "function" ? base.onChangeAttempt(answer) : void 0;
-	        }
-	      };
-	    })(this);
+	  onChangeAnswer: function(answer, changeEvent) {
+	    var base;
+	    if (this.props.onChange != null) {
+	      this.setState({
+	        answer_id: answer.id
+	      });
+	      return this.props.onChange(answer);
+	    } else {
+	      changeEvent.preventDefault();
+	      return typeof (base = this.props).onChangeAttempt === "function" ? base.onChangeAttempt(answer) : void 0;
+	    }
 	  },
 	  render: function() {
-	    var answered_count, answers, checkedAnswerIndex, choicesEnabled, chosenAnswer, classes, correct_answer_id, feedback, hasCorrectAnswer, html, qid, questionAnswerProps, ref, type;
-	    ref = this.props, type = ref.type, answered_count = ref.answered_count, choicesEnabled = ref.choicesEnabled, correct_answer_id = ref.correct_answer_id;
+	    var answered_count, answers, checkedAnswerIndex, choicesEnabled, chosenAnswer, classes, correct_answer_id, feedback, hasCorrectAnswer, html, keySet, qid, questionAnswerProps, ref, type;
+	    ref = this.props, type = ref.type, answered_count = ref.answered_count, choicesEnabled = ref.choicesEnabled, correct_answer_id = ref.correct_answer_id, keySet = ref.keySet;
 	    chosenAnswer = [this.props.answer_id, this.state.answer_id];
 	    checkedAnswerIndex = null;
 	    html = this.props.model.stem_html;
@@ -1395,11 +1766,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    answers = _.chain(this.props.model.answers).sortBy(function(answer) {
 	      return parseInt(answer.id);
 	    }).map(function(answer, i) {
-	      var additionalProps, answerProps;
+	      var additionalProps, answerProps, ref1;
 	      additionalProps = {
 	        answer: answer,
 	        iter: i,
-	        key: questionAnswerProps.qid + "-option-" + i
+	        key: questionAnswerProps.qid + "-option-" + i,
+	        keyControl: (ref1 = KEYS[keySet]) != null ? ref1[i] : void 0
 	      };
 	      answerProps = _.extend({}, additionalProps, questionAnswerProps);
 	      if (isAnswerChecked(answer, chosenAnswer)) {
@@ -1410,7 +1782,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if ((feedback != null) && (checkedAnswerIndex != null)) {
 	      answers.splice(checkedAnswerIndex + 1, 0, feedback);
 	    }
-	    classes = classnames('question', {
+	    classes = classnames('openstax-question', {
 	      'has-correct-answer': hasCorrectAnswer
 	    });
 	    return React.createElement("div", {
@@ -1429,7 +1801,49 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 16 */
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _, handleKeys, keymaster, keysHelper,
+	  slice = [].slice;
+
+	_ = __webpack_require__(3);
+
+	keymaster = __webpack_require__(8);
+
+	keysHelper = {};
+
+	handleKeys = function() {
+	  var keyFN, keymasterArgs, keys;
+	  keyFN = arguments[0], keys = arguments[1], keymasterArgs = 3 <= arguments.length ? slice.call(arguments, 2) : [];
+	  if (!keys) {
+	    return keys != null;
+	  }
+	  if (_.isArray(keys)) {
+	    return _.each(keys, function(key) {
+	      return keyFN.apply(null, [key.toString()].concat(slice.call(keymasterArgs)));
+	    });
+	  } else {
+	    return keyFN.apply(null, [keys].concat(slice.call(keymasterArgs)));
+	  }
+	};
+
+	keysHelper.on = _.partial(handleKeys, keymaster);
+
+	keysHelper.off = _.partial(handleKeys, keymaster.unbind);
+
+	keysHelper.getCharFromNumKey = function(numKey, offset) {
+	  if (offset == null) {
+	    offset = 1;
+	  }
+	  return String.fromCharCode((97 - offset) + numKey);
+	};
+
+	module.exports = keysHelper;
+
+
+/***/ },
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var FreeResponse, React;
@@ -1467,18 +1881,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var BS, React, RefreshButton, _;
 
 	React = __webpack_require__(2);
 
-	BS = __webpack_require__(12);
+	BS = __webpack_require__(13);
 
 	_ = __webpack_require__(3);
 
-	RefreshButton = __webpack_require__(18);
+	RefreshButton = __webpack_require__(20);
 
 	module.exports = React.createClass({
 	  displayName: 'AsyncButton',
@@ -1565,7 +1979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React;
@@ -1600,7 +2014,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var CONTINUE_PROP_TYPES, CONTROL_PROPS, EXERCISE_STEP_CARD_PROP_TYPES, FOOTER_PROPS, FREE_RESPONSE_PROP_TYPES, MULTIPLE_CHOICE_PROP_TYPES, NOT_PANEL_PROPS, REVIEW_CONTROL_PROP_TYPES, React, STEP_PROP_TYPES, _, extendPropTypes, propTypes, props,
@@ -1665,6 +2079,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	EXERCISE_STEP_CARD_PROP_TYPES.pinned = React.PropTypes.bool;
 
+	EXERCISE_STEP_CARD_PROP_TYPES.allowKeyNav = React.PropTypes.bool;
+
 	EXERCISE_STEP_CARD_PROP_TYPES.panel = React.PropTypes.oneOf(['review', 'multiple-choice', 'free-response', 'teacher-read-only']);
 
 	EXERCISE_STEP_CARD_PROP_TYPES.review = React.PropTypes.string;
@@ -1703,7 +2119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Breadcrumb, React, _, classnames;
@@ -1792,7 +2208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (isEnd) {
 	      title = step.title + " Completion";
 	    }
-	    classes = classnames('task-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className, {
+	    classes = classnames('openstax-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className, {
 	      current: isCurrent,
 	      active: isCurrent,
 	      completed: isCompleted,
@@ -1821,7 +2237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, SpyModeContent, SpyModeWrapper, classnames;
@@ -1847,7 +2263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  render: function() {
 	    return React.createElement("div", {
-	      "className": classnames('debug-content', {
+	      "className": classnames('openstax-debug-content', {
 	        'is-enabled': this.state.isEnabled
 	      })
 	    }, this.props.children, React.createElement("a", {
@@ -1876,7 +2292,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var CardBody, GetPositionMixin, PinnableFooter, PinnedHeader, React, ResizeListenerMixin, ScrollListenerMixin, _, ref;
@@ -1885,13 +2301,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	_ = __webpack_require__(3);
 
-	ScrollListenerMixin = __webpack_require__(23).ScrollListenerMixin;
+	ScrollListenerMixin = __webpack_require__(25).ScrollListenerMixin;
 
-	ResizeListenerMixin = __webpack_require__(24);
+	ResizeListenerMixin = __webpack_require__(26);
 
-	GetPositionMixin = __webpack_require__(25);
+	GetPositionMixin = __webpack_require__(27);
 
-	ref = __webpack_require__(10), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
+	ref = __webpack_require__(11), PinnedHeader = ref.PinnedHeader, CardBody = ref.CardBody, PinnableFooter = ref.PinnableFooter;
 
 	module.exports = React.createClass({
 	  displayName: 'PinnedHeaderFooterCard',
@@ -2086,13 +2502,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_23__;
+	module.exports = __WEBPACK_EXTERNAL_MODULE_25__;
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, _;
@@ -2173,7 +2589,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -2184,16 +2600,18 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var React, ResizeListenerMixin, SmartOverflow, _;
+	var React, ResizeListenerMixin, SmartOverflow, _, classnames;
 
 	React = __webpack_require__(2);
 
 	_ = __webpack_require__(3);
 
-	ResizeListenerMixin = __webpack_require__(24);
+	classnames = __webpack_require__(7);
+
+	ResizeListenerMixin = __webpack_require__(26);
 
 	SmartOverflow = React.createClass({displayName: "SmartOverflow",
 	  propTypes: {
@@ -2255,7 +2673,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  render: function() {
 	    var className, classes;
 	    className = this.props.className;
-	    classes = className + " smart-overflow";
+	    classes = classnames('openstax-smart-overflow', className);
 	    return React.createElement("div", {
 	      "className": classes,
 	      "style": this.state.style
@@ -2267,7 +2685,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React, classnames;
@@ -2279,7 +2697,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = React.createClass({displayName: "exports",
 	  render: function() {
 	    var classNames;
-	    classNames = classnames('close-x', 'close', this.props.className);
+	    classNames = classnames('openstax-close-x', 'close', this.props.className);
 	    return React.createElement("button", React.__spread({}, this.props, {
 	      "className": classNames,
 	      "aria-role": 'close'
