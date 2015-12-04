@@ -2,6 +2,8 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 
+{getNamespacedClass} = require '../../helpers/component'
+
 Breadcrumb = React.createClass
   displayName: 'Breadcrumb'
   propTypes:
@@ -62,7 +64,7 @@ Breadcrumb = React.createClass
     if isEnd
       title = "#{step.title} Completion"
 
-    classes = classnames 'openstax-breadcrumbs-step', 'icon-stack', 'icon-lg', step.group, crumbType, className,
+    classes = classnames getNamespacedClass('breadcrumbs-step'), 'icon-stack', 'icon-lg', step.group, crumbType, className,
       current: isCurrent
       active: isCurrent
       completed: isCompleted

@@ -1,6 +1,8 @@
 React = require 'react'
 classnames = require 'classnames'
 
+{getNamespacedClass} = require '../helpers/component'
+
 SpyModeWrapper = React.createClass
 
   propTypes:
@@ -14,7 +16,7 @@ SpyModeWrapper = React.createClass
     ev.preventDefault()
 
   render: ->
-    <div className={classnames('openstax-debug-content', {'is-enabled': @state.isEnabled})}>
+    <div className={classnames(getNamespacedClass('debug-content'), {'is-enabled': @state.isEnabled})}>
       {@props.children}
       <a href='#spy' onClick={@toggleDebug} className='debug-toggle-link'>&pi;</a>
     </div>

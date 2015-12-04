@@ -5,6 +5,7 @@ classnames = require 'classnames'
 
 keymaster = require 'keymaster'
 keysHelper = require '../helpers/keys'
+{getNamespacedClass} = require '../helpers/component'
 
 KEYS =
   'multiple-choice-numbers': _.range(1, 10) # 1 - 9
@@ -211,7 +212,7 @@ module.exports = React.createClass
 
     answers.splice(checkedAnswerIndex + 1, 0, feedback) if feedback? and checkedAnswerIndex?
 
-    classes = classnames 'openstax-question',
+    classes = classnames getNamespacedClass('question'),
       'has-correct-answer': hasCorrectAnswer
 
     <div className={classes}>

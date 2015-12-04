@@ -3,6 +3,8 @@ BS = require 'react-bootstrap'
 _ = require 'lodash'
 EventEmitter2 = require 'eventemitter2'
 
+{getNamespacedClass} = require '../helpers/component'
+
 Exercise = require './exercise'
 
 exerciseStub = require '../../stubs/exercise'
@@ -142,7 +144,7 @@ Demo = React.createClass
       breadcrumbs: <BreadcrumbDemo/>
 
     demos = _.map(demos, (demo, name) ->
-      <BS.Row className='demo openstax-wrapper'>
+      <BS.Row className="demo #{getNamespacedClass()}">
         <BS.Col xs={12}>
           <h1>{"#{name}"}</h1>
           <section className={"#{name}-demo"}>{demo}</section>

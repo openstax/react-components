@@ -7,6 +7,8 @@ keymaster = require 'keymaster'
 ExerciseGroup = require './group'
 {CardBody} = require '../pinned-header-footer-card/sections'
 
+{getNamespacedClass} = require '../../helpers/component'
+
 {
   ExContinueButton,
   ExReviewControls,
@@ -148,7 +150,7 @@ ExerciseStepCard = React.createClass
     footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
     footer = React.addons.cloneWithProps(footer, footerProps)
 
-    cardClasses = classnames 'task-step', 'openstax-exercise-card', className
+    cardClasses = classnames getNamespacedClass('exercise-card'), 'task-step', className
 
     <CardBody className={cardClasses} footer={footer} pinned={pinned}>
       <div className="exercise-#{panel}">
