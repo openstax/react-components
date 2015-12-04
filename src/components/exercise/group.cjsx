@@ -5,6 +5,8 @@ camelCase = require 'camelcase'
 
 ChapterSectionMixin = require '../chapter-section-mixin'
 
+{getNamespacedClass} = require '../../helpers/component'
+
 DEFAULT_GROUP =
   show: false
 
@@ -56,9 +58,9 @@ ExerciseGroup = React.createClass
       className = group.replace(' ', '_')
       labels = @getGroupLabel(group, related_content)
 
-      groupDOM = <div className='openstax-step-group'>
+      groupDOM = <div className={getNamespacedClass('step-group')}>
           <i className="icon-sm icon-#{className}"></i>
-          <span className='openstax-step-group-label'>{labels}</span>
+          <span className={getNamespacedClass('step-group-label')}>{labels}</span>
         </div>
 
     groupDOM

@@ -2,6 +2,7 @@ React = require 'react'
 _ = require 'underscore'
 classnames = require 'classnames'
 
+{getNamespacedClass} = require '../helpers/component'
 {typesetMath} = require '../helpers/mathjax'
 
 module.exports = React.createClass
@@ -16,7 +17,7 @@ module.exports = React.createClass
   render: ->
     {className, block} = @props
 
-    classes = classnames 'openstax-has-html', className
+    classes = classnames getNamespacedClass('has-html'), className
 
     otherProps = _.omit(@props, 'className', 'block', 'html')
 

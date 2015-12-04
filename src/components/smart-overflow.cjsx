@@ -3,6 +3,7 @@ _ = require 'underscore'
 classnames = require 'classnames'
 
 ResizeListenerMixin = require './resize-listener-mixin'
+{getNamespacedClass} = require '../helpers/component'
 
 SmartOverflow = React.createClass
   propTypes:
@@ -53,7 +54,7 @@ SmartOverflow = React.createClass
   render: ->
     {className} = @props
 
-    classes = classnames 'openstax-smart-overflow', className
+    classes = classnames getNamespacedClass('smart-overflow'), className
 
     <div className={classes} style={@state.style}>
       {@props.children}
