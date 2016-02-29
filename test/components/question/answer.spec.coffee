@@ -14,11 +14,13 @@ describe 'Answer Component', ->
     @props =
       answer: ANSWER
       type: 'student'
+      chosenAnswer: []
 
     @propsWithFeedback =
       answer: ANSWER
       type: 'student'
       show_all_feedback: true
+      chosenAnswer: []
 
   it 'renders answer', ->
     Testing.renderComponent( Answer, props: @props ).then ({dom}) ->
