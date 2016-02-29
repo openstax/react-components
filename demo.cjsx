@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDom = require 'react-dom'
 Demo = require './src/components/demo'
 {startMathJax} = require './src/helpers/mathjax'
 
@@ -10,7 +11,7 @@ loadApp = ->
   mainDiv = document.createElement('div')
   mainDiv.id = 'react-root-container'
   document.body.appendChild(mainDiv)
-  React.render(<Demo/>, mainDiv)
+  ReactDom.render(<Demo/>, mainDiv)
   true
 
 loadApp() or document.addEventListener('readystatechange', loadApp)
