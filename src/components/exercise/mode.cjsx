@@ -32,11 +32,12 @@ ExMode = React.createClass
     @focusBox() if mode is 'free-response'
 
   componentWillReceiveProps: (nextProps) ->
-    {free_response, answer_id} = nextProps
+    {free_response, answer_id, freeResponseValue} = nextProps
 
     nextAnswers = {}
+    freeResponse = free_response or freeResponseValue or ''
 
-    nextAnswers.freeResponse = free_response if @state.freeResponse isnt free_response
+    nextAnswers.freeResponse = freeResponse if @state.freeResponse isnt freeResponse
     nextAnswers.answerId = answer_id if @state.answerId isnt answer_id
 
     @setState(nextAnswers) unless _.isEmpty(nextAnswers)
@@ -56,9 +57,8 @@ ExMode = React.createClass
     @props.onAnswerChanged?(answer)
 
   getFreeResponse: ->
-    freeResponseValue = @state.freeResponse
     {mode, free_response, disabled} = @props
-    {freeResponseValue} = @props unless freeResponseValue
+    {freeResponse} = @state
 
 
     if mode is 'free-response'
@@ -66,7 +66,7 @@ ExMode = React.createClass
         disabled={disabled}
         ref='freeResponse'
         placeholder='Enter your response'
-        value={freeResponseValue or ''}
+        value={freeResponse}
         onChange={@onFreeResponseChange}
       />
     else
