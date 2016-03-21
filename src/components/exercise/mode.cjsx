@@ -6,6 +6,8 @@ ArbitraryHtmlAndMath = require '../html'
 Question = require '../question'
 FreeResponse = require './free-response'
 
+RESPONSE_CHAR_LIMIT = 10000
+
 {propTypes, props} = require './props'
 modeType = propTypes.ExerciseStepCard.panel
 modeProps = _.extend {}, propTypes.ExFreeResponse, propTypes.ExMulitpleChoice, propTypes.ExReview, mode: modeType
@@ -48,8 +50,9 @@ ExMode = React.createClass
 
   onFreeResponseChange: ->
     freeResponse = ReactDom.findDOMNode(@refs.freeResponse)?.value
-    @setState({freeResponse})
-    @props.onFreeResponseChange?(freeResponse)
+    if freeResponse.length <= RESPONSE_CHAR_LIMIT
+      @setState({freeResponse})
+      @props.onFreeResponseChange?(freeResponse)
 
   onAnswerChanged: (answer) ->
     return if answer.id is @state.answerId or @props.mode isnt 'multiple-choice'
