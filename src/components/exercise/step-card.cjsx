@@ -1,4 +1,4 @@
-React = require 'react/addons'
+React = require 'react'
 _ = require 'underscore'
 
 classnames = require 'classnames'
@@ -135,7 +135,7 @@ ExerciseStepCard = React.createClass
 
     footerProps = _.pick(@props, props.StepFooter)
     footerProps.controlButtons = controlButtons or <ControlButtons {...controlProps}/>
-    footer = React.addons.cloneWithProps(footer, footerProps)
+    footer = React.cloneElement(footer, footerProps)
 
     cardClasses = classnames 'task-step', 'openstax-exercise-card', className
 

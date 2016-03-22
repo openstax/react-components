@@ -29,6 +29,5 @@ describe 'Pinned Header/Footer Card Component', ->
     Testing.renderComponent( PinnedHeaderFooterCard, unmountAfter: 20, props: @props ).then ({dom, element}) ->
       expect(document.body.classList.contains('pinned-shy')).to.be.false
       element.setState(scrollTop: 400) # imitate react-scroll-components
-      _.defer ->
-        expect(document.body.classList.contains('pinned-shy')).to.be.true
-        done()
+      expect(document.body.classList.contains('pinned-shy')).to.be.true
+      done()

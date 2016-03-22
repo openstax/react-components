@@ -1,7 +1,8 @@
 _ = require 'lodash'
 expect = chai.expect
-React = require 'react/addons'
-ReactTestUtils = React.addons.TestUtils
+React = require 'react'
+ReactDom = require 'react-dom'
+ReactTestUtils = require 'react-addons-test-utils'
 {Promise}      = require 'es6-promise'
 {commonActions} = require './utilities'
 sandbox = null
@@ -23,18 +24,18 @@ Testing = {
     promise = new Promise( (resolve, reject) ->
       props = _.clone(options.props)
       props._wrapped_component = component
-      wrapper = React.render( React.createElement(Wrapper, props), root )
+      wrapper = ReactDom.render( React.createElement(Wrapper, props), root )
       resolve({
         root,
         wrapper,
         element: wrapper.refs.element,
-        dom: React.findDOMNode(wrapper.refs.element)
+        dom: ReactDom.findDOMNode(wrapper.refs.element)
       })
     )
     # defer adding the then callback so it'll be called after whatever is attached after the return
     _.defer -> promise.then ->
       _.delay( ->
-        React.unmountComponentAtNode(root)
+        ReactDom.unmountComponentAtNode(root)
       , unmountAfter )
       return arguments
     promise
@@ -42,5 +43,8 @@ Testing = {
   actions: commonActions
 
 }
+
+_.pluck = (array, key) ->
+  _.map(array, _.property(key))
 
 module.exports = {Testing, expect, sinon, React, _, ReactTestUtils}

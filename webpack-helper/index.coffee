@@ -3,7 +3,7 @@ _ = require 'lodash'
 {base, optionConfigs, devServer} = require './configs'
 
 mergeWebpackConfig = (baseConfig, config) ->
-  _.merge {}, baseConfig, config, (a, b) ->
+  _.mergeWith {}, baseConfig, config, (a, b) ->
     if _.isArray(a)
       return a.concat(b)
 
