@@ -95,8 +95,7 @@
   },
   "peerDependencies": {
     "react": "0.14.7",
-    "react-bootstrap": "0.28.3",
-    "react-scroll-components": "^0.2.2"
+    "react-bootstrap": "0.28.3"
   },
   "peerDependencies": {},
   "config": {
