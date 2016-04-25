@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 classnames = require 'classnames'
 
@@ -54,7 +55,7 @@ module.exports = React.createClass
   # Perform manipulation on HTML contained inside the components node.
   updateDOMNode: ->
     # External links should open in a new window
-    root = @getDOMNode()
+    root = ReactDOM.findDOMNode(@)
     links = root.querySelectorAll('a')
     _.each links, (link) ->
       link.setAttribute('target', '_blank') unless link.getAttribute('href')?[0] is '#'
