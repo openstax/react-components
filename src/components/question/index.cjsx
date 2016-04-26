@@ -44,7 +44,7 @@ Question = React.createClass
     processHtmlAndMath: @props.processHtmlAndMath
 
   render: ->
-    {model, correct_answer_id, exercise_uid, className} = @props
+    {model, correct_answer_id, exercise_uid, className, questionNumber} = @props
     {stem_html, collaborator_solutions, formats, stimulus_html} = model
 
     hasCorrectAnswer = !! correct_answer_id
@@ -53,7 +53,7 @@ Question = React.createClass
 
     exerciseUid = <div className="exercise-uid">{exercise_uid}</div> if exercise_uid?
 
-    <div className={classes}>
+    <div className={classes} data-question-number={questionNumber}>
       <QuestionHtml type='stimulus' html={stimulus_html} />
       <QuestionHtml type='stem' html={stem_html} />
       {@props.children}
