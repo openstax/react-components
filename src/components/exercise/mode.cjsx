@@ -1,4 +1,5 @@
 React = require 'react'
+ReactDOM = require 'react-dom'
 _ = require 'underscore'
 
 ArbitraryHtmlAndMath = require '../html'
@@ -45,10 +46,10 @@ ExMode = React.createClass
 
   focusBox: ->
     {focus, mode} = @props
-    @refs.freeResponse?.getDOMNode?().focus?() if focus and mode is 'free-response'
+    ReactDOM.findDOMNode(@refs.freeResponse)?.focus?() if focus and mode is 'free-response'
 
   onFreeResponseChange: ->
-    freeResponse = @refs.freeResponse?.getDOMNode()?.value
+    freeResponse = ReactDOM.findDOMNode(@refs.freeResponse)?.value
     if freeResponse.length <= RESPONSE_CHAR_LIMIT
       @setState({freeResponse})
       @props.onFreeResponseChange?(freeResponse)
