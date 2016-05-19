@@ -4,7 +4,7 @@ _ = require 'lodash'
 EventEmitter2 = require 'eventemitter2'
 classnames = require 'classnames'
 
-Exercise = require './exercise'
+{Exercise, ExerciseWithScroll} = require './exercise'
 Notifications = require '../model/notifications'
 URLs = require '../model/urls'
 NotificationBar = require './notifications/bar'
@@ -116,7 +116,8 @@ MultipartExerciseDemo = React.createClass
   render: ->
     {exerciseProps, currentStep} = @state
     {setScrollState, goToStep} = @props
-    <Exercise
+
+    <ExerciseWithScroll
       {...exerciseProps}
       project='concept-coach'
       setScrollState={setScrollState.bind(@)}
@@ -275,6 +276,7 @@ Demo = React.createClass
     demos =
       notices: <NoticesDemo />
       multipartExercise: <MultipartExerciseDemo/>
+      exercise: <ExerciseDemo/>
       exercisePreview: <ExercisePreviewDemo/>
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
