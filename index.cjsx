@@ -1,4 +1,5 @@
 {PinnedHeader, CardBody, PinnableFooter} = require './src/components/pinned-header-footer-card/sections'
+{PinnedHeaderFooterCard, HeaderFooterCard} = require './src/components/pinned-header-footer-card'
 {Exercise, ExerciseWithScroll} = require './src/components/exercise'
 
 module.exports = {
@@ -24,7 +25,8 @@ module.exports = {
   NotificationsBar:       require './src/components/notifications/bar'
   PinnableFooter,
   PinnedHeader,
-  PinnedHeaderFooterCard: require './src/components/pinned-header-footer-card'
+  PinnedHeaderFooterCard,
+  HeaderFooterCard,
   Question:               require './src/components/question'
   RefreshButton:          require './src/components/buttons/refresh-button'
   ResizeListenerMixin:    require './src/components/resize-listener-mixin'

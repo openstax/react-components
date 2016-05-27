@@ -1,7 +1,7 @@
 React = require 'react'
 {Testing, expect, sinon, _} = require 'test/helpers'
 
-PinnedHeaderFooterCard = require 'components/pinned-header-footer-card'
+{PinnedHeaderFooterCard} = require 'components/pinned-header-footer-card'
 
 TestChildComponent = React.createClass
   render: -> React.createElement('span', {}, 'i am a test')

@@ -7,7 +7,36 @@ GetPositionMixin = require '../get-position-mixin'
 
 {PinnedHeader, CardBody, PinnableFooter} = require './sections'
 
-module.exports = React.createClass
+HeaderFooterMixin =
+  componentWillMount: ->
+    @previousBodyClasses = document.body.className
+    cardBodyClass = @props.cardType
+    document.body.className = "#{cardBodyClass}-view"
+
+  componentWillUnmount: ->
+    document.body.className = @previousBodyClasses
+
+HeaderFooterCard = React.createClass
+  displayName: 'HeaderFooterCard'
+  propTypes:
+    cardType: React.PropTypes.string.isRequired
+  mixins: [HeaderFooterMixin]
+  render: ->
+    {className} = @props
+
+    childrenProps = _.omit(@props, 'children', 'header', 'footer', 'className')
+
+    if @props.header?
+      pinnedHeader = <PinnedHeader {...childrenProps} ref='header'>
+        {@props.header}
+      </PinnedHeader>
+
+    <div className={className} ref='container'>
+      {pinnedHeader}
+      {@props.children}
+    </div>
+
+PinnedHeaderFooterCard = React.createClass
   displayName: 'PinnedHeaderFooterCard'
   propTypes:
     cardType: React.PropTypes.string.isRequired
@@ -30,17 +59,11 @@ module.exports = React.createClass
     headerHeight: 0
     containerMarginTop: '0px'
 
-  mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin]
+  mixins: [ScrollListenerMixin, ResizeListenerMixin, GetPositionMixin, HeaderFooterMixin]
 
   componentWillMount: ->
-    @previousBodyClasses = document.body.className
-    cardBodyClass = @props.cardType
-    document.body.className = "#{cardBodyClass}-view"
     document.body.classList.add('pinned-view')
     document.body.classList.add('pinned-force-shy') if @props.forceShy
-
-  componentWillUnmount: ->
-    document.body.className = @previousBodyClasses
 
   getOffset: ->
     if @props.fixedOffset?
@@ -182,3 +205,5 @@ module.exports = React.createClass
       {pinnedHeader}
       {@props.children}
     </div>
+
+module.exports = {PinnedHeaderFooterCard, HeaderFooterCard}
