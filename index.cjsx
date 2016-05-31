@@ -30,4 +30,5 @@ module.exports = {
   ResizeListenerMixin:    require './src/components/resize-listener-mixin'
   SmartOverflow:          require './src/components/smart-overflow'
   SpyMode:                require './src/components/spy-mode'
+  SuretyGuard:            require './src/components/surety-guard'
 }

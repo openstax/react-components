@@ -8,7 +8,7 @@ classnames = require 'classnames'
 Notifications = require '../model/notifications'
 URLs = require '../model/urls'
 NotificationBar = require './notifications/bar'
-
+SuretyGuard = require './surety-guard'
 exerciseStub = require '../../stubs/exercise'
 multipartExerciseStub = require '../../stubs/exercise-multipart'
 exerciseEvents = new EventEmitter2(wildcard: true)
@@ -74,6 +74,29 @@ getProps = (stepIds) ->
       console.info('onStepCompleted')
     onNextStep: ->
       console.info('onNextStep')
+
+SuretyDemo = React.createClass
+
+  getInitialState: -> triggered: false
+  onConfirm: -> @setState(triggered: true)
+
+  render: ->
+    if @state.triggered
+      message = 'you seem to be sure'
+
+    <div className="surety-demo">
+      <h3>{message}</h3>
+      <SuretyGuard
+        title={false}
+        placement='right'
+        message="Destroy ALL THE THINGS?"
+        onConfirm={@onConfirm}
+      >
+        <BS.Button>
+          Perform Dangerous Operation!
+        </BS.Button>
+      </SuretyGuard>
+    </div>
 
 ExerciseDemo = React.createClass
   displayName: 'ExerciseDemo'
@@ -303,6 +326,7 @@ Demo = React.createClass
       notices: <NoticesDemo />
       multipartExercise: <MultipartExerciseDemo/>
       exercise: <ExerciseDemo/>
+      surety: <SuretyDemo/>
       breadcrumbs: <BreadcrumbDemo/>
       html: <HTMLDemo/>
 
