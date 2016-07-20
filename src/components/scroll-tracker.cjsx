@@ -1,4 +1,4 @@
-React = require 'react'
+React = require 'react/addons'
 _ = require 'underscore'
 
 ScrollListenerMixin = require 'react-scroll-components'
@@ -81,11 +81,14 @@ ScrollTrackerParentMixin =
 
     @state.scrollPoints[scrollStateIndex]
 
+  shouldPassUpdates: ->
+    @state.isScrolling and not @state.scrollingToKey
+
   setScrollState: ->
     scrollState = @getScrollStateByScroll(@state.scrollTop)
     @setState({scrollState})
 
-    @props.setScrollState(scrollState)
+    @props.setScrollState(scrollState) if @shouldPassUpdates()
 
   isScrollPointsStable: (compareState) ->
     _.isEqual(@state.scrollPoints, compareState.scrollPoints)
@@ -104,7 +107,7 @@ ScrollTrackerParentMixin =
   componentWillUpdate: (nextProps, nextState) ->
     return unless @shouldCheckForScrollingState(nextState)
     willScrollStateKeyChange = not @areKeysSame(nextState.scrollState.key, @state.scrollState.key)
-    @props.goToStep(nextState.scrollState.key) if willScrollStateKeyChange
+    @props.goToStep(nextState.scrollState.key) if willScrollStateKeyChange and @shouldPassUpdates()
 
     @setState(scrollingToKey: false) if @isScrollingStopped(nextState) and @state.scrollingToKey
 
@@ -126,6 +129,11 @@ ScrollTrackerParentMixin =
     return unless scrollState?
 
     @setState(scrollingToKey: true)
-    window.scrollTo(0, (scrollState?.scrollPoint - @state.scrollTopBuffer))
+
+    if @scrollToPosition?
+      @scrollToPosition((scrollState?.scrollPoint - @state.scrollTopBuffer), updateHistory: false)
+    else
+      window.scrollTo(0, (scrollState?.scrollPoint - @state.scrollTopBuffer))
+
 
 module.exports = {ScrollTrackerMixin, ScrollTracker, ScrollTrackerParentMixin}
