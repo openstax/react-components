@@ -75,7 +75,7 @@ ScrollToMixin =
     requestAnimationFrame = win.requestAnimationFrame or _.defer
     options.attemptNumber ||= 0
 
-    step = =>
+    step = ->
       elapsed = Date.now() - startTime
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) )
       if elapsed < duration then requestAnimationFrame(step)
