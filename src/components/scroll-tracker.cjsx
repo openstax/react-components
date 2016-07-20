@@ -44,6 +44,7 @@ ScrollTrackerParentMixin =
     scrollPoints: []
     scrollState: {}
     scrollTopBuffer: 0
+    scrollingToKey: false
 
   setScrollTopBuffer: ->
     scrollTopBuffer = GetPositionMixin.getTopPosition(@getDOMNode())
@@ -93,6 +94,9 @@ ScrollTrackerParentMixin =
     state ?= @state
     not _.isEmpty(state.scrollPoints) and not _.isUndefined(state.scrollState) and @isScrollPointsStable(state)
 
+  isScrollingStopped: (nextState) ->
+    @state.isScrolling and not nextState.isScrolling
+
   componentDidMount: ->
     @setScrollTopBuffer()
     @scrollToKey(@props.currentStep) if @props.currentStep?
@@ -102,20 +106,26 @@ ScrollTrackerParentMixin =
     willScrollStateKeyChange = not @areKeysSame(nextState.scrollState.key, @state.scrollState.key)
     @props.goToStep(nextState.scrollState.key) if willScrollStateKeyChange
 
-  componentDidUpdate: (prevProps, prevState) ->
-    return unless @shouldCheckForScrollingState(prevState)
-    doesScrollStateMatch = @areKeysSame(prevState.scrollState.key, @getScrollStateByScroll(@state.scrollTop)?.key)
-    didCurrentStepChange = not @areKeysSame(@props.currentStep, prevState.scrollState?.key)
+    @setState(scrollingToKey: false) if @isScrollingStopped(nextState) and @state.scrollingToKey
 
-    unless doesScrollStateMatch
-      @setScrollState()
-    else if didCurrentStepChange
-      @scrollToKey(@props.currentStep)
+  componentDidUpdate: (prevProps, prevState) ->
+    return unless @shouldCheckForScrollingState()
+
+    doesScrollStateMatch = @areKeysSame(prevState.scrollState.key, @getScrollStateByScroll(@state.scrollTop)?.key)
+    @setScrollState() unless doesScrollStateMatch
+
+  componentWillReceiveProps: (nextProps) ->
+    return unless @shouldCheckForScrollingState()
+
+    shouldCurrentStepChange = not @areKeysSame(nextProps.currentStep, @state.scrollState?.key)
+    @scrollToKey(nextProps.currentStep) if shouldCurrentStepChange
 
   scrollToKey: (stepKey) ->
     return unless stepKey?
     scrollState = @getScrollStateByKey(stepKey)
     return unless scrollState?
+
+    @setState(scrollingToKey: true)
     window.scrollTo(0, (scrollState?.scrollPoint - @state.scrollTopBuffer))
 
 module.exports = {ScrollTrackerMixin, ScrollTracker, ScrollTrackerParentMixin}
