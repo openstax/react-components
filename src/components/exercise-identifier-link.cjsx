@@ -17,15 +17,15 @@ ExerciseIdentifierLink = React.createClass
     if (@props.project isnt 'concept-coach' or not section) then return
 
     <span className="related-section">
-      From Section {@sectionFormat(section.chapter_section)} - {section.title}
+      Comes from {@sectionFormat(section.chapter_section)} - {section.title}
     </span>
 
   render: ->
     url = Exercise.troubleUrl(@props)
     <div>
       <span className='exercise-identifier-link'>
-        {@renderSection()}
         ID# {@props.exerciseId} | <a target="_blank" href={url}>Report an error</a>
       </span>
+      {@renderSection()}
     </div>
 module.exports = ExerciseIdentifierLink
