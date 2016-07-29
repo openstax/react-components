@@ -22,3 +22,13 @@ describe 'Exercise Identifier Link', ->
     @props.project = 'concept-coach'
     Testing.renderComponent( ExerciseIdentifierLink, props: @props ).then ({dom}) ->
       expect(dom.querySelector('a').getAttribute('href')).to.match(/Yes/)
+
+  it 'adds section info when related content is there and is CC', ->
+    @props.project = 'concept-coach'
+    @props.related_content = [
+      chapter_section: [1, 2],
+      title: 'Section Title'
+    ]
+
+    Testing.renderComponent( ExerciseIdentifierLink, props: @props ).then ({dom}) ->
+      expect(dom.querySelector('span.related-section')).to.exist

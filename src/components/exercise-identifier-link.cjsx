@@ -14,7 +14,7 @@ ExerciseIdentifierLink = React.createClass
 
   renderSection: ->
     section = _.first(@props.related_content)
-    if (@props.project isnt 'concept-coach' || not section) then return
+    if (@props.project isnt 'concept-coach' or not section) then return
 
     <span className="related-section">
       From Section {@sectionFormat(section.chapter_section)} - {section.title}
