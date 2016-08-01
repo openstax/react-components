@@ -103,19 +103,21 @@ ExercisePreview = React.createClass
       header={@props.header}
       footer={@renderFooter() if @props.children}
     >
-      {<div className='selected-mask' /> if @props.isSelected}
-
       <ControlsOverlay exercise={@props.exercise}
         actions={@props.overlayActions} onClick={@props.onOverlayClick} />
 
-      <ExerciseBadges exercise={@props.exercise} />
+      <div className="exercise-body">
+        {<div className='selected-mask' /> if @props.isSelected}
 
-      {<ArbitraryHtmlAndMath className='context' block={true}
-        html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context)}
+        <ExerciseBadges exercise={@props.exercise} />
 
-      {@renderStimulus()}
+        {<ArbitraryHtmlAndMath className='context' block={true}
+          html={@props.exercise.context} /> unless _.isEmpty(@props.exercise.context)}
 
-      {questions}
+        {@renderStimulus()}
+
+        {questions}
+      </div>
       <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
