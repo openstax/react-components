@@ -118,7 +118,7 @@ ExercisePreview = React.createClass
 
         {questions}
       </div>
-      <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
+
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
