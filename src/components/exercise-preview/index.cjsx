@@ -69,7 +69,9 @@ ExercisePreview = React.createClass
     tags = _.clone @props.exercise.tags
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
+    tags.push(name: "ID: #{@props.exercise.content.uid}")
     renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
+
     classes = classnames( 'openstax-exercise-preview', @props.className, {
       'answers-hidden':   @props.hideAnswers
       'has-actions':      not _.isEmpty(@props.overlayActions)
@@ -118,7 +120,6 @@ ExercisePreview = React.createClass
 
         {questions}
       </div>
-      <div className='exercise-uid'>Exercise ID: {@props.exercise.content.uid}</div>
       <div className='exercise-tags'>{renderedTags}</div>
     </BS.Panel>
 
