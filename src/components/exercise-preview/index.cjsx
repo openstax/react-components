@@ -39,6 +39,17 @@ ExercisePreview = React.createClass
       content = _.compact([tag.name, tag.description]).join(' ') or tag.id
       isLO = _.include(['lo', 'aplo'], tag.type)
       {content, isLO}
+    sortTags: (tags, extractTag) ->
+      tags = _.sortBy(tags, 'name')
+      idTag = _.findWhere(tags, type: 'id')
+      loTag = _.find(tags, (tag) ->
+        {isLO} = extractTag(tag)
+        isLO
+      )
+      if idTag then tags.splice(_.indexOf(tags, idTag), 1)
+      if loTag then tags.splice(_.indexOf(tags, loTag), 0, idTag)
+      else tags.push(idTag)
+      tags
 
   renderTag: (tag) ->
     {content, isLO} = @props.extractTag(tag)
@@ -69,8 +80,8 @@ ExercisePreview = React.createClass
     tags = _.clone @props.exercise.tags
     unless @props.displayAllTags
       tags = _.where tags, is_visible: true
-    tags.push(name: "ID: #{@props.exercise.content.uid}")
-    renderedTags = _.map(_.sortBy(tags, 'name'), @renderTag)
+    tags.push(name: "ID: #{@props.exercise.content.uid}", type: 'id')
+    renderedTags = _.map(@props.sortTags(tags, @props.extractTag), @renderTag)
 
     classes = classnames( 'openstax-exercise-preview', @props.className, {
       'answers-hidden':   @props.hideAnswers
