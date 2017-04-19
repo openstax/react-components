@@ -79,9 +79,8 @@ ScrollToMixin =
   scrollToTop: ->
     @scrollToSelector('#react-root-container', updateHistory: false)
 
-  scrollToElement: (el, options = {} ) ->
-    win       = @props.windowImpl
-    endPos    = @_desiredTopPosition(el)
+  scrollToPosition: (endPos, options = {}, onEndStep) ->
+    win = @props.windowImpl
 
     if options.immediate is true
       win.scroll(0, endPos)
@@ -93,15 +92,19 @@ ScrollToMixin =
     requestAnimationFrame = win.requestAnimationFrame or _.defer
     options.attemptNumber ||= 0
 
-    step = =>
+    step = ->
       elapsed = Date.now() - startTime
       win.scroll(0, POSITION(startPos, endPos, elapsed, duration) )
       if elapsed < duration then requestAnimationFrame(step)
-      else @_onScrollStep(el, options)
+      else onEndStep?(options)
 
-    @_onBeforeScroll(el)
     step()
 
+  scrollToElement: (el, options = {} ) ->
+    endPos    = @_desiredTopPosition(el)
+
+    @_onBeforeScroll(el)
+    @scrollToPosition(endPos, options, _.partial(@_onScrollStep, el))
 
 
 module.exports = ScrollToMixin
