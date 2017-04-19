@@ -111,8 +111,10 @@ ExerciseMixin =
 
     if step.content?.uid
       <ExerciseIdentifierLink key='exercise-uid'
+        project={@props.project}
         exerciseId={step.content?.uid}
-        related_content={related_content}/>
+        related_content={related_content}
+      />
 
 
 ExerciseWithScroll = React.createClass

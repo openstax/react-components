@@ -12,11 +12,20 @@ ExerciseIdentifierLink = React.createClass
     exerciseId: React.PropTypes.string.isRequired
     project: React.PropTypes.oneOf(['concept-coach', 'tutor'])
 
+  renderSection: ->
+    section = _.first(@props.related_content)
+    if (@props.project isnt 'concept-coach' or not section) then return
+
+    <span className="related-section">
+      Comes from {@sectionFormat(section.chapter_section)} - {section.title}
+    </span>
+
   render: ->
     url = Exercise.troubleUrl(@props)
     <div>
       <span className='exercise-identifier-link'>
         ID# {@props.exerciseId} | <a target="_blank" href={url}>Report an error</a>
       </span>
+      {@renderSection()}
     </div>
 module.exports = ExerciseIdentifierLink
